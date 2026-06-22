@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "PowerShell(py -3 --version 2>&1)",
+      "PowerShell(pipx --version 2>&1)",
+      "PowerShell(py -3 -m venv \"$env:USERPROFILE\\\\.agent-reach-venv\")",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.agent-reach-venv\\\\Scripts;\" + $env:Path; python -m pip install https://github.com/Panniantong/agent-reach/archive/main.zip)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.agent-reach-venv\\\\Scripts;\" + $env:Path; agent-reach install --env=auto)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.agent-reach-venv\\\\Scripts;\" + $env:Path; pip install linkedin-scraper-mcp)"
+    ]
+  }
+}
