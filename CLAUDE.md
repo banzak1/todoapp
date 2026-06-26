@@ -13,7 +13,9 @@ O vault do Obsidian está em `notes/`. **Sempre carregar estes arquivos no iníc
 - `notes/Roadmap.md`
 - `notes/Diretrizes.md`
 - `notes/Decisões.md`
-- `notes/Sessão 2026-06-22.md` (última sessão)
+- `notes/Sessão 2026-06-25.md` (última sessão)
+- `notes/Estratégia de Carreira.md` (se contexto for carreira/vagas)
+- `notes/Vagas Ativas.md` (se contexto for carreira/vagas)
 
 Todas as decisões de arquitetura, bloqueios e aprendizados devem ser registrados em `notes/Decisões.md`.
 Notas de estudo sobre tecnologias específicas vão em `notes/Aprendizados/`.
@@ -39,11 +41,22 @@ A skill `tlc-spec-driven` está instalada. Estrutura de specs formais em `.specs
 - Clean Code, SOLID como prática diária
 - Mensagens de commit em inglês, seguindo conventional commits
 
+## Papéis do Assistente
+
+Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:
+- Busca e análise de vagas no LinkedIn (via MCP `linkedin-scraper-mcp` na porta 8000)
+- Revisão e adaptação de currículos (LaTeX moderncv)
+- Preparação para entrevistas e definição de pretensão salarial
+- Criação de posts técnicos para LinkedIn (seguindo diretrizes `content-engine`)
+- Scripts: `scripts/busca_vagas.sh` para busca automatizada de vagas
+
 ## Contexto da Última Sessão
 
-Carregar `notes/Sessão 2026-06-22.md` para continuidade. Pontos principais:
-1. Currículo analisado — gaps identificados (métricas, Docker, observabilidade, CI/CD)
-2. WSL2 Ubuntu recomendado como ambiente principal
-3. Estrutura do projeto definida com 8 fases progressivas
-4. Content-engine skill instalada para LinkedIn
-5. Próximo passo: inicializar a Fase 1 (API REST em Java/Spring Boot)
+Carregar `notes/Sessão 2026-06-25.md` para continuidade. Pontos principais:
+1. Currículo revisado e reescrito — 2 versões (Java e Node.js)
+2. Vagas ativas: BEES (AB InBev), Magalu, Sicredi, Minsait, We Recruites
+3. Pretensão definida: R\$ 8k–10k CLT Pleno
+4. LinkedIn MCP funcional no WSL com Chromium
+5. Fase 1 do todoApp pausada — Task entity parcialmente implementada
+6. Post do LinkedIn publicado sobre mapa de maquinários em tempo real
+7. Desligado da DB1 — em transição, disponibilidade imediata

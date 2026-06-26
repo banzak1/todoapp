@@ -33,4 +33,35 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 
 ---
 
+---
+
+## 2026-06-23 a 25 — Estratégia de Carreira
+
+### DEC-006: Dois currículos, um perfil
+**Decisão:** Manter versão Java (principal) e versão Node.js do currículo, alternando conforme a vaga.
+**Motivo:** 90% das vagas pedem Java/Spring Boot; mas vagas Node.js que valorizam Claude Code/SDD são raras e valem o esforço.
+**Como aplicar:** CV Java pra Minsait, Magalu, Sicredi, BEES. CV Node.js pra vagas fullstack JS.
+
+### DEC-007: Faixa salarial Pleno CLT: R\$ 8.000 – R\$ 10.000
+**Decisão:** Pretensão padrão entre R\$ 8k–10k para CLT Pleno.
+**Motivo:** Médio do mercado (Payscale, Glassdoor, consultorias). Alto o suficiente pra se valorizar, baixo o suficiente pra passar do filtro.
+**Como aplicar:** Flexível conforme benefícios. PJ: R\$ 10k–12k.
+
+### DEC-008: Recusar vagas Júnior mesmo em transição
+**Decisão:** Não aceitar enquadramento Júnior.
+**Motivo:** 4+ anos de XP com stack enterprise. Entrar como Jr reseta a carreira e o salário. Melhor esperar 1-2 meses pelo Pleno certo.
+**Como aplicar:** Se urgência financeira for crítica, aceitar Jr mas continuar procurando Pleno ativamente.
+
+### DEC-009: BEES (AB InBev) é prioridade máxima
+**Decisão:** Priorizar a vaga Intermediate Java Developer na BEES.
+**Motivo:** Plataforma global (29 países), 34 candidatos apenas, stack compatível, inglês intermediário acessível.
+**Como aplicar:** CV Java, destacar experiência com microservices e Kafka.
+
+### DEC-010: LinkedIn MCP para busca de vagas
+**Decisão:** Usar o servidor linkedin-scraper-mcp para buscar vagas automaticamente.
+**Motivo:** Resultados mais precisos que busca manual, filtro por nível e data.
+**Script:** `scripts/busca_vagas.sh` — salva resultados em `scripts/jobs_output.txt`.
+
+---
+
 *Voltar para: [[Visão Geral do Projeto]]*
