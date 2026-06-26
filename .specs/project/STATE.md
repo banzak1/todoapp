@@ -37,7 +37,13 @@ Em construção.
 
 ## Active Session
 
-**2026-06-22 — Fase 1 Kickoff**
-- Agent Reach instalado no WSL2 (GitHub + LinkedIn funcionais)
-- Iniciando spec-driven development da Fase 1
-- Próximo: criar spec, design, tasks e implementar API REST
+**2026-06-26 — CRUD Task implementado**
+- Oh My Zsh instalado no WSL2
+- Spec-driven development aplicado: spec → implementação
+- Feature spec criada: `.specs/features/task-crud/spec.md`
+- CRUD completo implementado e compilando:
+  - TaskService, TaskRepository, TaskController
+  - DTOs (CreateTaskRequest, UpdateTaskRequest, TaskResponse)
+  - GlobalExceptionHandler com ProblemDetail
+  - Timestamps automáticos (createdAt/updatedAt)
+- Próximo: testes unitários (JUnit 5 + Mockito) e testes de integração (Testcontainers)
