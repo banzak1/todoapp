@@ -47,3 +47,9 @@ Em construção.
   - GlobalExceptionHandler com ProblemDetail
   - Timestamps automáticos (createdAt/updatedAt)
 - Próximo: testes unitários (JUnit 5 + Mockito) e testes de integração (Testcontainers)
+
+**2026-06-26 — Testes unitários e de controller**
+- TaskServiceTest: 13 testes unitários com Mockito (100% coverage do service)
+- TaskControllerTest: 10 testes de integração com MockMvc
+- 24 testes totais, 0 falhas
+- À fazer: testes de integração com Testcontainers (+ PostgreSQL)

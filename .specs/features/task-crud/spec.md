@@ -107,28 +107,29 @@ A Fase 1 do todoApp precisa de uma API REST funcional para gerenciamento de tare
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| TASK-01 | P1: Criar Tarefa | Execute | Pending |
-| TASK-02 | P1: Criar Tarefa | Execute | Pending |
-| TASK-03 | P1: Criar Tarefa | Execute | Pending |
-| TASK-04 | P1: Criar Tarefa | Execute | Pending |
-| TASK-05 | P1: Listar Tarefas | Execute | Pending |
-| TASK-06 | P1: Listar Tarefas | Execute | Pending |
-| TASK-07 | P1: Buscar Tarefa por ID | Execute | Pending |
-| TASK-08 | P1: Buscar Tarefa por ID | Execute | Pending |
-| TASK-09 | P1: Atualizar Tarefa | Execute | Pending |
-| TASK-10 | P1: Atualizar Tarefa | Execute | Pending |
-| TASK-11 | P1: Atualizar Tarefa | Execute | Pending |
-| TASK-12 | P1: Atualizar Tarefa | Execute | Pending |
-| TASK-13 | P1: Deletar Tarefa | Execute | Pending |
-| TASK-14 | P1: Deletar Tarefa | Execute | Pending |
-| TASK-15 | Edge Cases | Execute | Pending |
+| TASK-01 | P1: Criar Tarefa | Execute | Verified |
+| TASK-02 | P1: Criar Tarefa | Execute | Verified |
+| TASK-03 | P1: Criar Tarefa | Execute | Verified |
+| TASK-04 | P1: Criar Tarefa | Execute | Verified |
+| TASK-05 | P1: Listar Tarefas | Execute | Verified |
+| TASK-06 | P1: Listar Tarefas | Execute | Verified |
+| TASK-07 | P1: Buscar Tarefa por ID | Execute | Verified |
+| TASK-08 | P1: Buscar Tarefa por ID | Execute | Verified |
+| TASK-09 | P1: Atualizar Tarefa | Execute | Verified |
+| TASK-10 | P1: Atualizar Tarefa | Execute | Verified |
+| TASK-11 | P1: Atualizar Tarefa | Execute | Verified |
+| TASK-12 | P1: Atualizar Tarefa | Execute | Verified |
+| TASK-13 | P1: Deletar Tarefa | Execute | Verified |
+| TASK-14 | P1: Deletar Tarefa | Execute | Verified |
+| TASK-15 | Edge Cases | Execute | Verified |
 
-**Coverage:** 15 total, 0 mapped to tasks, 15 unmapped ⚠️
+**Coverage:** 15 total, 15 verified ✅
 
 ---
 
 ## Success Criteria
 
-- [ ] Todos os endpoints CRUD respondem conforme acceptance criteria
-- [ ] Respostas de erro padronizadas com status, mensagem e timestamp
-- [ ] Build do Maven compila sem erros
+- [x] Todos os endpoints CRUD respondem conforme acceptance criteria
+- [x] Respostas de erro padronizadas com status, mensagem e timestamp
+- [x] Build do Maven compila sem erros
+- [x] 24 testes passando (13 unitários + 10 controller + 1 context)
