@@ -63,3 +63,13 @@ logs/
 .env.local
 application-local.properties
 application-local.yml
+
+# Personal / Career
+curriculo/
+scripts/
+notes/.obsidian/
+notes/Currículo*.md
+notes/Estratégia*.md
+notes/Vagas*.md
+notes/Sessão*.md
+.agents/

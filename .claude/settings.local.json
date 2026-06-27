@@ -14,7 +14,8 @@
       "Bash(./mvnw test *)",
       "Bash(git add *)",
       "Bash(git commit -m 'test\\(task-crud\\): add unit tests for TaskService *)",
-      "Bash(git commit -m 'test\\(task-crud\\): add controller integration tests with MockMvc *)"
+      "Bash(git commit -m 'test\\(task-crud\\): add controller integration tests with MockMvc *)",
+      "Bash(git rm *)"
     ]
   }
 }
