@@ -7,11 +7,12 @@ import com.banzak.todoapp.infrastructure.persistence.TaskRepository;
 import com.banzak.todoapp.interfaces.rest.dto.CreateTaskRequest;
 import com.banzak.todoapp.interfaces.rest.dto.TaskResponse;
 import com.banzak.todoapp.interfaces.rest.dto.UpdateTaskRequest;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional

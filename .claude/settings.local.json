@@ -7,7 +7,14 @@
       "PowerShell(py -3 -m venv \"$env:USERPROFILE\\\\.agent-reach-venv\")",
       "PowerShell($env:Path = \"$env:USERPROFILE\\\\.agent-reach-venv\\\\Scripts;\" + $env:Path; python -m pip install https://github.com/Panniantong/agent-reach/archive/main.zip)",
       "PowerShell($env:Path = \"$env:USERPROFILE\\\\.agent-reach-venv\\\\Scripts;\" + $env:Path; agent-reach install --env=auto)",
-      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.agent-reach-venv\\\\Scripts;\" + $env:Path; pip install linkedin-scraper-mcp)"
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.agent-reach-venv\\\\Scripts;\" + $env:Path; pip install linkedin-scraper-mcp)",
+      "Bash(zsh --version)",
+      "Bash(./mvnw compile *)",
+      "Bash(mvn compile *)",
+      "Bash(./mvnw test *)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'test\\(task-crud\\): add unit tests for TaskService *)",
+      "Bash(git commit -m 'test\\(task-crud\\): add controller integration tests with MockMvc *)"
     ]
   }
 }
