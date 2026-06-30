@@ -15,6 +15,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -75,6 +79,83 @@ class TaskServiceTest {
 
             assertThat(result).isEmpty();
             verify(taskRepository).findAll();
+        }
+    }
+
+    @Nested
+    @DisplayName("findAll (paginated)")
+    class FindAllPaginated {
+
+        @Test
+        @DisplayName("should return paginated tasks without filters")
+        void shouldReturnPage_whenNoFilters() {
+            var pageable = PageRequest.of(0, 10);
+            var tasks = List.of(createSampleTask(1L), createSampleTask(2L));
+            var page = new PageImpl<>(tasks, pageable, 2);
+            when(taskRepository.findAll(pageable)).thenReturn(page);
+
+            var result = taskService.findAll(pageable, null, null);
+
+            assertThat(result).hasSize(2);
+            assertThat(result.getTotalElements()).isEqualTo(2);
+            verify(taskRepository).findAll(pageable);
+        }
+
+        @Test
+        @DisplayName("should filter by status")
+        void shouldFilterByStatus() {
+            var pageable = PageRequest.of(0, 10);
+            var tasks = List.of(createSampleTask(1L));
+            var page = new PageImpl<>(tasks, pageable, 1);
+            when(taskRepository.findByStatus(TaskStatus.TODO, pageable)).thenReturn(page);
+
+            var result = taskService.findAll(pageable, "TODO", null);
+
+            assertThat(result).hasSize(1);
+            verify(taskRepository).findByStatus(TaskStatus.TODO, pageable);
+        }
+
+        @Test
+        @DisplayName("should filter by priority")
+        void shouldFilterByPriority() {
+            var pageable = PageRequest.of(0, 10);
+            var tasks = List.of(createSampleTask(1L));
+            var page = new PageImpl<>(tasks, pageable, 1);
+            when(taskRepository.findByPriority(TaskPriority.HIGH, pageable)).thenReturn(page);
+
+            var result = taskService.findAll(pageable, null, "HIGH");
+
+            assertThat(result).hasSize(1);
+            verify(taskRepository).findByPriority(TaskPriority.HIGH, pageable);
+        }
+
+        @Test
+        @DisplayName("should filter by status and priority")
+        void shouldFilterByStatusAndPriority() {
+            var pageable = PageRequest.of(0, 10);
+            var tasks = List.of(createSampleTask(1L));
+            var page = new PageImpl<>(tasks, pageable, 1);
+            when(taskRepository.findByStatusAndPriority(TaskStatus.TODO, TaskPriority.HIGH, pageable))
+                    .thenReturn(page);
+
+            var result = taskService.findAll(pageable, "TODO", "HIGH");
+
+            assertThat(result).hasSize(1);
+            verify(taskRepository).findByStatusAndPriority(TaskStatus.TODO, TaskPriority.HIGH, pageable);
+        }
+
+        @Test
+        @DisplayName("should ignore invalid filter values")
+        void shouldIgnoreInvalidFilters() {
+            var pageable = PageRequest.of(0, 10);
+            var tasks = List.of(createSampleTask(1L));
+            var page = new PageImpl<>(tasks, pageable, 1);
+            when(taskRepository.findAll(pageable)).thenReturn(page);
+
+            var result = taskService.findAll(pageable, "INVALID_STATUS", "INVALID_PRIORITY");
+
+            assertThat(result).hasSize(1);
+            verify(taskRepository).findAll(pageable);
         }
     }
 

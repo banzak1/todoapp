@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
@@ -107,6 +110,60 @@ class TaskControllerTest {
                     .hasStatusOk()
                     .bodyJson()
                     .extractingPath("$.length()")
+                    .asNumber()
+                    .isEqualTo(0);
+        }
+    }
+
+    @Nested
+    @DisplayName("GET /api/v1/tasks/page")
+    class FindAllPaginated {
+
+        @Test
+        @DisplayName("should return 200 with paginated content")
+        void shouldReturn200_whenPaginated() {
+            var pageable = PageRequest.of(0, 20);
+            var page = new PageImpl<>(List.of(sampleResponse(1L)), pageable, 1);
+            when(taskService.findAll(any(PageRequest.class), eq(null), eq(null))).thenReturn(page);
+
+            mockMvc.get().uri("/api/v1/tasks/page")
+                    .assertThat()
+                    .hasStatusOk()
+                    .bodyJson()
+                    .extractingPath("$.content.length()")
+                    .asNumber()
+                    .isEqualTo(1);
+        }
+
+        @Test
+        @DisplayName("should return 200 with filter params")
+        void shouldReturn200_withFilters() {
+            var pageable = PageRequest.of(0, 20);
+            var page = new PageImpl<>(List.of(sampleResponse(1L)), pageable, 1);
+            when(taskService.findAll(any(PageRequest.class), eq("TODO"), eq("HIGH")))
+                    .thenReturn(page);
+
+            mockMvc.get().uri("/api/v1/tasks/page?status=TODO&priority=HIGH")
+                    .assertThat()
+                    .hasStatusOk()
+                    .bodyJson()
+                    .extractingPath("$.content.length()")
+                    .asNumber()
+                    .isEqualTo(1);
+        }
+
+        @Test
+        @DisplayName("should return 200 with empty page")
+        void shouldReturn200_whenNoResults() {
+            var pageable = PageRequest.of(0, 20);
+            var page = new PageImpl<TaskResponse>(List.of(), pageable, 0);
+            when(taskService.findAll(any(PageRequest.class), eq(null), eq(null))).thenReturn(page);
+
+            mockMvc.get().uri("/api/v1/tasks/page")
+                    .assertThat()
+                    .hasStatusOk()
+                    .bodyJson()
+                    .extractingPath("$.content.length()")
                     .asNumber()
                     .isEqualTo(0);
         }

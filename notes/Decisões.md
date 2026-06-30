@@ -64,4 +64,23 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 
 ---
 
+## 2026-06-29 — Finalização da Fase 1
+
+### DEC-011: Profile-based database switching
+**Decisão:** Manter H2 como default (dev) com profile `postgres` para PostgreSQL.
+**Motivo:** H2 permite desenvolvimento rápido sem Docker. Profile postgres para testes reais e produção.
+**Como aplicar:** `application.yml` (H2) + `application-postgres.yml` (PostgreSQL). Ativar com `--spring.profiles.active=postgres`.
+
+### DEC-012: Endpoint paginado separado
+**Decisão:** Criar `GET /api/v1/tasks/page` para paginação, mantendo `GET /api/v1/tasks` original sem paginação.
+**Motivo:** Compatibilidade retroativa. Clientes simples podem usar o endpoint original; clientes que precisam de paginação usam o novo.
+**Como aplicar:** Controller tem `findAll()` (List) e `findAllPaginated()` (Page). Service gerencia ambos.
+
+### DEC-013: OpenAPI com springdoc
+**Decisão:** Usar `springdoc-openapi-starter-webmvc-ui` para documentação OpenAPI 3.0.
+**Motivo:** Integração nativa com Spring Boot 3, zero configuração extra além do dependency, Swagger UI embutido.
+**Como aplicar:** Endpoints anotados com `@Operation`, `@ApiResponse`, `@Schema` nos DTOs.
+
+---
+
 *Voltar para: [[Visão Geral do Projeto]]*

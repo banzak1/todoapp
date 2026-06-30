@@ -11,6 +11,8 @@ import com.banzak.todoapp.interfaces.rest.dto.UpdateTaskRequest;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,24 @@ public class TaskService {
                 .stream()
                 .map(this::toResponse)
                 .toList();
+    }
+
+    public Page<TaskResponse> findAll(Pageable pageable, String status, String priority) {
+        TaskStatus taskStatus = parseStatusOrNull(status);
+        TaskPriority taskPriority = parsePriorityOrNull(priority);
+
+        Page<Task> page;
+        if (taskStatus != null && taskPriority != null) {
+            page = taskRepository.findByStatusAndPriority(taskStatus, taskPriority, pageable);
+        } else if (taskStatus != null) {
+            page = taskRepository.findByStatus(taskStatus, pageable);
+        } else if (taskPriority != null) {
+            page = taskRepository.findByPriority(taskPriority, pageable);
+        } else {
+            page = taskRepository.findAll(pageable);
+        }
+
+        return page.map(this::toResponse);
     }
 
     public TaskResponse findById(Long id) {
@@ -89,12 +109,30 @@ public class TaskService {
         }
     }
 
+    private TaskPriority parsePriorityOrNull(String value) {
+        if (value == null || value.isBlank()) return null;
+        try {
+            return TaskPriority.valueOf(value.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
     private TaskStatus parseStatus(String value) {
         if (value == null) return TaskStatus.TODO;
         try {
             return TaskStatus.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {
             return TaskStatus.TODO;
+        }
+    }
+
+    private TaskStatus parseStatusOrNull(String value) {
+        if (value == null || value.isBlank()) return null;
+        try {
+            return TaskStatus.valueOf(value.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
         }
     }
 

@@ -4,17 +4,19 @@ Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero. Isso sim
 
 ---
 
-## Fase 1 — Fundação (Atual)
+## Fase 1 — Fundação ✅ (Concluída em 2026-06-29)
 **Objetivo:** API REST funcional com testes e banco de dados
 
-- [ ] Inicializar projeto Spring Boot 3 + Java 21
-- [ ] Entidade Task: CRUD completo
-- [ ] Conexão PostgreSQL com JPA/Hibernate
-- [ ] Testes unitários com JUnit 5 + Mockito
-- [ ] Testes de integração com Testcontainers
-- [ ] Documentação da API (Swagger/OpenAPI)
+- [x] Inicializar projeto Spring Boot 3 + Java 21
+- [x] Entidade Task: CRUD completo
+- [x] Conexão PostgreSQL com JPA/Hibernate (profile postgres)
+- [x] Testes unitários com JUnit 5 + Mockito (16 testes)
+- [x] Testes de integração com Testcontainers (7 testes)
+- [x] Testes de contrato com MockMvc (15 testes)
+- [x] Documentação da API (Swagger/OpenAPI)
+- [x] Paginação e filtros (status, priority)
 
-**Tecnologias:** Java 21, Spring Boot 3, Spring Data JPA, PostgreSQL, JUnit 5, Mockito, Testcontainers
+**Tecnologias:** Java 21, Spring Boot 3, Spring Data JPA, PostgreSQL, JUnit 5, Mockito, Testcontainers, SpringDoc OpenAPI
 
 ---
 
