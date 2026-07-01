@@ -36,6 +36,9 @@ class TaskServiceTest {
     @Mock
     private TaskRepository taskRepository;
 
+    @Mock
+    private TaskEventPublisher eventPublisher;
+
     @InjectMocks
     private TaskService taskService;
 
