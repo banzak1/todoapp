@@ -21,9 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final TaskEventPublisher eventPublisher;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, TaskEventPublisher eventPublisher) {
         this.taskRepository = taskRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     public List<TaskResponse> findAll() {
@@ -66,6 +68,7 @@ public class TaskService {
                 .build();
 
         var saved = taskRepository.save(task);
+        eventPublisher.publishCreated(saved);
         return toResponse(saved);
     }
 
@@ -90,6 +93,7 @@ public class TaskService {
                 .ifPresent(task::setStatus);
 
         var saved = taskRepository.save(task);
+        eventPublisher.publishUpdated(saved);
         return toResponse(saved);
     }
 
@@ -98,6 +102,7 @@ public class TaskService {
             throw new TaskNotFoundException(id);
         }
         taskRepository.deleteById(id);
+        eventPublisher.publishDeleted(id);
     }
 
     private TaskPriority parsePriority(String value) {
