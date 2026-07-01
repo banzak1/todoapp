@@ -95,6 +95,16 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 **Motivo:** Reduz o tamanho final da imagem (apenas JRE necessário no runtime) e mitiga riscos de segurança impedindo que vulnerabilidades no app deem acesso root ao host.
 **Como aplicar:** Diretivas `FROM ... AS builder` e criação de grupo/usuário com `addgroup`/`adduser` no `Dockerfile`.
 
+### DEC-016: Kafka em Modo KRaft (Zookeeperless)
+**Decisão:** Utilizar o Apache Kafka em modo KRaft (Kafka Raft Metadata Mode) para mensageria assíncrona, dispensando o container Zookeeper.
+**Motivo:** Reduz a complexidade da infraestrutura (um container a menos para gerenciar), diminui o uso de memória no ambiente de desenvolvimento local e acelera o tempo de boot dos serviços de mensageria.
+**Como aplicar:** Configuração do container `confluentinc/cp-kafka:7.6.0` com variáveis de ambiente do KRaft (process roles, node ID, controller quorum e cluster ID) no `docker-compose.yml`.
+
+### DEC-017: Resiliência de Mensageria com DLT (Dead Letter Topic)
+**Decisão:** Utilizar a estratégia de Dead Letter Topic (DLT) em conjunto com retentativas (retries) e backoff exponencial no processamento dos eventos.
+**Motivo:** Evita o bloqueio da partição do Kafka (Poison Pill) em caso de exceções no processamento das mensagens, garantindo tolerância a falhas sem perda de dados para auditoria ou intervenções manuais futuras.
+**Como aplicar:** Uso das anotações `@RetryableTopic` (attempts = 3, backoff exponencial) e `@DltHandler` no `KafkaTaskEventConsumer.java`.
+
 ---
 
 *Voltar para: [[Visão Geral do Projeto]]*

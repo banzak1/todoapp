@@ -53,9 +53,9 @@ Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:
 ## Contexto da Última Sessão
 
 Carregar `notes/Sessão 2026-07-01.md` para continuidade. Pontos principais:
-1. Fase 2 (Containerização) totalmente concluída e testada.
-2. Dockerfile multi-stage com JRE leve e segurança com usuário não-root.
-3. docker-compose.yml orquestrando a API Spring Boot + PostgreSQL 16 com volume persistente e controle de inicialização saudável (healthcheck).
-4. Integrado o Flyway para controle de esquema de banco de dados (V1 e V2 testados no H2 e no Postgres).
-5. Corrigida falha intermitente (flakiness) no teste `TaskRepositoryTest.shouldAutoSetTimestamps`.
-6. Próximo passo: Fase 3 (Mensageria com Kafka).
+1. Fases 2 (Containerização) e 3 (Mensageria com Kafka) concluídas e testadas localmente via Docker.
+2. Flyway controlando com sucesso o ciclo estrutural do banco em H2 e Postgres (V1 e V2).
+3. Kafka configurado no docker-compose em modo KRaft (Zookeeperless).
+4. Produtor associado aos casos de uso do serviço (TaskService) e publicando no tópico `todo-tasks`.
+5. Consumidores criados em grupos separados com fluxo de retry resiliente (3 tentativas com backoff exponencial) e descarte em Dead Letter Topic (todo-tasks-dlt) caso haja erros ("fail" no título).
+6. Próximo passo: Fase 4 (Cache com Redis).

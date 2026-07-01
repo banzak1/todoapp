@@ -33,16 +33,16 @@ Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero. Isso sim
 
 ---
 
-## Fase 3 — Mensageria
+## Fase 3 — Mensageria ✅ (Concluída em 2026-07-01)
 **Objetivo:** Processamento assíncrono com eventos
 
-- [ ] Broker Kafka no docker-compose
-- [ ] Producer: eventos de tarefa criada/atualizada/deletada
-- [ ] Consumer: log de auditoria
-- [ ] Consumer: notificações (simulação)
-- [ ] Dead letter topic para falhas
+- [x] Broker Kafka no docker-compose (em modo KRaft)
+- [x] Producer: eventos de tarefa criada/atualizada/deletada
+- [x] Consumer: log de auditoria
+- [x] Consumer: notificações (simulação)
+- [x] Dead letter topic para falhas (implementado com @RetryableTopic e @DltHandler)
 
-**Tecnologias:** Apache Kafka, Spring Kafka
+**Tecnologias:** Apache Kafka (KRaft), Spring Kafka
 
 ---
 
