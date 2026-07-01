@@ -83,4 +83,18 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 
 ---
 
+## 2026-07-01 — Finalização da Fase 2
+
+### DEC-014: Controle de Versão do Banco com Flyway
+**Decisão:** Introduzir o Flyway como ferramenta de migração de esquema de banco de dados e desativar a auto-criação do Hibernate (`ddl-auto: validate`).
+**Motivo:** Evita inconsistências de esquema entre ambientes (dev/prod/testes), rastreia todas as alterações estruturais do banco de dados no controle de versão e automatiza a carga de dados iniciais.
+**Como aplicar:** Scripts `.sql` ordenados em `src/main/resources/db/migration/` e dependência do Flyway no `pom.xml`.
+
+### DEC-015: Docker Multi-stage e Segurança (Non-Root)
+**Decisão:** Usar build multi-stage no Dockerfile e rodar a aplicação sob um usuário sem privilégios de administrador (`spring:spring`).
+**Motivo:** Reduz o tamanho final da imagem (apenas JRE necessário no runtime) e mitiga riscos de segurança impedindo que vulnerabilidades no app deem acesso root ao host.
+**Como aplicar:** Diretivas `FROM ... AS builder` e criação de grupo/usuário com `addgroup`/`adduser` no `Dockerfile`.
+
+---
+
 *Voltar para: [[Visão Geral do Projeto]]*

@@ -52,9 +52,10 @@ Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:
 
 ## Contexto da Última Sessão
 
-Carregar `notes/Sessão 2026-06-30.md` para continuidade. Pontos principais:
-1. Currículos atualizados em lote com Mockito, Docker, métricas reais e certificações AWS
-2. Relatório de melhorias registrado em `cv_review_report.md`
-3. Erro de digitação "clients" corrigido em FCamara.tex
-4. Fase 1 do todoApp totalmente concluída e testada (39 testes passando)
-5. Próximo passo: Fase 2 (Containerização)
+Carregar `notes/Sessão 2026-07-01.md` para continuidade. Pontos principais:
+1. Fase 2 (Containerização) totalmente concluída e testada.
+2. Dockerfile multi-stage com JRE leve e segurança com usuário não-root.
+3. docker-compose.yml orquestrando a API Spring Boot + PostgreSQL 16 com volume persistente e controle de inicialização saudável (healthcheck).
+4. Integrado o Flyway para controle de esquema de banco de dados (V1 e V2 testados no H2 e no Postgres).
+5. Corrigida falha intermitente (flakiness) no teste `TaskRepositoryTest.shouldAutoSetTimestamps`.
+6. Próximo passo: Fase 3 (Mensageria com Kafka).

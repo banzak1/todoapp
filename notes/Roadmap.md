@@ -20,16 +20,16 @@ Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero. Isso sim
 
 ---
 
-## Fase 2 — Containerização
+## Fase 2 — Containerização ✅ (Concluída em 2026-07-01)
 **Objetivo:** App rodando em containers, ambiente reproduzível
 
-- [ ] Dockerfile multi-stage (build + runtime)
-- [ ] docker-compose: app + PostgreSQL
-- [ ] Health checks, volumes persistentes
-- [ ] Networks e variáveis de ambiente
-- [ ] Scripts de inicialização do banco
+- [x] Dockerfile multi-stage (build + runtime)
+- [x] docker-compose: app + PostgreSQL
+- [x] Health checks, volumes persistentes
+- [x] Networks e variáveis de ambiente
+- [x] Scripts de inicialização do banco (gerenciados via Flyway)
 
-**Tecnologias:** Docker, Docker Compose
+**Tecnologias:** Docker, Docker Compose, Flyway
 
 ---
 
