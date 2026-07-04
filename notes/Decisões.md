@@ -107,7 +107,7 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 
 ---
 
-## 2026-07-04 — Reestruturação do Roadmap
+## 2026-07-04 — Reestruturação do Roadmap e Módulo de IA
 
 ### DEC-018: Roadmap revisado — Redis postergado, IA e Deploy como prioridades
 **Decisão:** Reorganizar as 8 fases originais para 11 fases, com as seguintes mudanças:
@@ -117,24 +117,24 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 4. **Documentação do Vault** (Fase 5) — nova fase para preservar conhecimento
 5. **CI/CD** (Fase 7) agora vem antes de **Observabilidade** (Fase 8)
 
-**Motivo:** 
-- IA já estava implementada e precisava ser finalizada
-- Deploy em produção é mais urgente que cache para validar o app rodando
-- Primeiro automatiza (CI/CD), depois monitora (Observabilidade)
-- Redis é otimização, não funcionalidade core
-- Vault precisa de regras de negócio e fluxos documentados para não perder contexto
-
-**Como aplicar:** Roadmap.md atualizado com as 11 fases e checklists correspondentes.
+**Motivo:** IA já estava implementada e precisava ser finalizada. Deploy em produção é mais urgente que cache. Primeiro automatiza (CI/CD), depois monitora (Observabilidade).
 
 ### DEC-019: Cloud Run como alvo de deploy (GCP Free Tier)
-**Decisão:** Usar Google Cloud Run para deploy em produção, combinado com Neon (PostgreSQL free) e Confluent Cloud (Kafka free).
-**Motivo:** Cloud Run é serverless com free tier generoso (2M req/mês). Já temos Dockerfile. Neon oferece PostgreSQL gerenciado gratuito. Confluent Cloud oferece 50k msgs/dia grátis. Stack completa por R$ 0.
-**Como aplicar:** Guia de deploy documentado no vault com passo-a-passo.
+**Decisão:** Usar Google Cloud Run + Neon (PostgreSQL free) + Confluent Cloud (Kafka free) + OpenAI API.
+**Motivo:** Cloud Run serverless com free tier generoso (2M req/mês). Dockerfile já existe. Stack completa por R$ 0.
 
 ### DEC-020: CI/CD antes de Observabilidade
-**Decisão:** Implementar GitHub Actions (CI/CD) antes de Grafana/Prometheus (Observabilidade).
-**Motivo:** Fazer primeiro deploy manual no Cloud Run para entender o processo, depois automatizar com CI/CD, e só então adicionar métricas e dashboards. Não faz sentido monitorar um processo manual.
-**Como aplicar:** Roadmap ajustado: Fase 7 = CI/CD, Fase 8 = Observabilidade.
+**Decisão:** GitHub Actions (CI/CD) antes de Grafana/Prometheus (Observabilidade).
+**Motivo:** Primeiro deploy manual, depois automatiza, depois monitora.
+
+### DEC-021: Fluxo de Branches dev → main
+**Decisão:** Adotar fluxo com branch `dev` de integração. Branches de trabalho: `dev-<feature>`.
+**Fluxo:** `dev-<feature>` → PR → `dev` (squash merge) → quando estável, PR → `main`.
+**Motivo:** Proteger a `main` para produção. Permitir revisão antes do merge final.
+
+### DEC-022: LangChain4j com fallback condicional
+**Decisão:** Usar `@ConditionalOnProperty` para ativar o LangChain4j apenas quando `OPENAI_API_KEY` estiver definida. Sem a chave, `MockTaskSuggester` é usado automaticamente.
+**Motivo:** Desenvolvimento local sem API key não deve quebrar. Produção com a chave ativa a IA real.
 
 ---
 
