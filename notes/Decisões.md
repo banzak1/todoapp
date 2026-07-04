@@ -107,4 +107,35 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 
 ---
 
+## 2026-07-04 — Reestruturação do Roadmap
+
+### DEC-018: Roadmap revisado — Redis postergado, IA e Deploy como prioridades
+**Decisão:** Reorganizar as 8 fases originais para 11 fases, com as seguintes mudanças:
+1. **Módulo de IA** (Fase 4) — adicionado como fase própria com LangChain4j
+2. **Redis/Cache** postergado para Fase 10 (otimização, não essencial agora)
+3. **Deploy em Produção** (Fase 6) — nova fase usando Cloud Run + free tier
+4. **Documentação do Vault** (Fase 5) — nova fase para preservar conhecimento
+5. **CI/CD** (Fase 7) agora vem antes de **Observabilidade** (Fase 8)
+
+**Motivo:** 
+- IA já estava implementada e precisava ser finalizada
+- Deploy em produção é mais urgente que cache para validar o app rodando
+- Primeiro automatiza (CI/CD), depois monitora (Observabilidade)
+- Redis é otimização, não funcionalidade core
+- Vault precisa de regras de negócio e fluxos documentados para não perder contexto
+
+**Como aplicar:** Roadmap.md atualizado com as 11 fases e checklists correspondentes.
+
+### DEC-019: Cloud Run como alvo de deploy (GCP Free Tier)
+**Decisão:** Usar Google Cloud Run para deploy em produção, combinado com Neon (PostgreSQL free) e Confluent Cloud (Kafka free).
+**Motivo:** Cloud Run é serverless com free tier generoso (2M req/mês). Já temos Dockerfile. Neon oferece PostgreSQL gerenciado gratuito. Confluent Cloud oferece 50k msgs/dia grátis. Stack completa por R$ 0.
+**Como aplicar:** Guia de deploy documentado no vault com passo-a-passo.
+
+### DEC-020: CI/CD antes de Observabilidade
+**Decisão:** Implementar GitHub Actions (CI/CD) antes de Grafana/Prometheus (Observabilidade).
+**Motivo:** Fazer primeiro deploy manual no Cloud Run para entender o processo, depois automatizar com CI/CD, e só então adicionar métricas e dashboards. Não faz sentido monitorar um processo manual.
+**Como aplicar:** Roadmap ajustado: Fase 7 = CI/CD, Fase 8 = Observabilidade.
+
+---
+
 *Voltar para: [[Visão Geral do Projeto]]*
