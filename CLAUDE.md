@@ -41,6 +41,26 @@ A skill `tlc-spec-driven` está instalada. Estrutura de specs formais em `.specs
 - Clean Code, SOLID como prática diária
 - Mensagens de commit em inglês, seguindo conventional commits
 
+## Git Workflow (Obrigatório — não esquecer)
+
+Fluxo de branches para todo o desenvolvimento:
+
+```
+main (produção) — só recebe PRs aprovados de dev
+  ↑ PR aprovado pelo usuário
+dev (integração) — branch de integração, recebe merges das features
+  ↑ PR para dev
+dev-<nome-da-feature> — branches de trabalho (ex: dev-deploy-cloud-run)
+```
+
+**Regras:**
+1. Sempre criar branch a partir de `dev`: `git checkout dev && git checkout -b dev-<feature>`
+2. Desenvolver e commitar na branch `dev-<feature>`
+3. Abrir Pull Request de `dev-<feature>` → `dev`
+4. Após aprovação do usuário, fazer squash merge para `dev`
+5. Quando `dev` estiver estável, abrir PR de `dev` → `main`
+6. O usuário aprova o PR de `dev` → `main`
+
 ## Papéis do Assistente
 
 Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:

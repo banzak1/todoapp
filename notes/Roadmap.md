@@ -1,7 +1,7 @@
 # Roadmap — 11 Fases de Aprendizado (Revisado em 2026-07-04)
 
 Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero.
-Estrutura revisada: Redis postergado, IA adicionado, Deploy como fase principal, CI/CD antes de Observabilidade.
+Redis postergado, IA adicionado, Deploy como fase principal, CI/CD antes de Observabilidade.
 
 ---
 
@@ -60,10 +60,10 @@ Estrutura revisada: Redis postergado, IA adicionado, Deploy como fase principal,
 
 ---
 
-## Fase 5 — Documentação do Vault
+## Fase 5 — Documentação do Vault (Em andamento)
 **Objetivo:** Preservar conhecimento do projeto com regras de negócio, fluxos e arquitetura
 
-- [ ] Regras de negócio documentadas
+- [x] Regras de negócio documentadas
 - [ ] Fluxos de eventos (Kafka) mapeados
 - [ ] Estrutura do banco de dados documentada
 - [ ] Decisões de design registradas com contexto
@@ -80,9 +80,8 @@ Estrutura revisada: Redis postergado, IA adicionado, Deploy como fase principal,
 - [ ] Setup Cloud Run (GCP Free Tier)
 - [ ] Banco PostgreSQL gerenciado (Neon/Cloud SQL free)
 - [ ] Kafka gerenciado (Confluent Cloud free tier)
-- [ ] Variáveis de ambiente e secrets
+- [ ] Variáveis de ambiente e secrets (OPENAI_API_KEY, etc.)
 - [ ] Health checks e readiness no Cloud Run
-- [ ] Domínio customizado (opcional)
 
 **Tecnologias:** Google Cloud Run, Neon (PostgreSQL), Confluent Cloud
 
@@ -92,7 +91,6 @@ Estrutura revisada: Redis postergado, IA adicionado, Deploy como fase principal,
 **Objetivo:** Pipeline automatizado de build, teste e deploy
 
 - [ ] GitHub Actions: build + testes
-- [ ] Lint e análise de código
 - [ ] Build da imagem Docker
 - [ ] Deploy automático no Cloud Run
 - [ ] Rollback strategy
