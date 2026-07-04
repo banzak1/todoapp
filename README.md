@@ -21,9 +21,10 @@ O projeto evolui adicionando novas camadas de complexidade técnica no mesmo rep
 
 ---
 
-## 🛠️ Stack Tecnológica Atualizada (Até Fase 3)
+## 🛠️ Stack Tecnológica Atualizada (Até Fase 3 + Módulo de IA)
 
 *   **Java 21 LTS** e **Spring Boot 3.5.x** (Spring Web, Spring Data JPA, Spring Validation, Spring Kafka)
+*   **LangChain4j 0.33.x** (Integração com Modelos de IA Generativa e Outputs Estruturados)
 *   **PostgreSQL 16** (Banco de dados de produção / containerizado)
 *   **H2 Database** (Banco de dados em memória para desenvolvimento rápido)
 *   **Flyway Database Migrations** (Controle e histórico de esquema de banco de dados)
@@ -50,20 +51,30 @@ src/main/java/com/banzak/todoapp/
 ├── application/                 # Casos de Uso e Lógica de Aplicação (Serviços e Portas)
 │   ├── TaskService.java
 │   ├── TaskEventPublisher.java  # PORTA: Interface para publicar eventos (desacoplada de tecnologia)
-│   └── TaskNotFoundException.java
+│   ├── TaskNotFoundException.java
+│   └── ai/
+│       └── AiTaskSuggester.java # PORTA: Interface para sugerir subtarefas e refinar prioridade
 │
 ├── infrastructure/              # Detalhes de Tecnologia e Adaptadores (Infraestrutura)
 │   ├── persistence/
 │   │   └── TaskRepository.java  # Interface Spring Data JPA
 │   │
-│   └── messaging/               # ADAPTADORES: Mensageria (Kafka)
-│       ├── KafkaTaskEventPublisher.java  # Implementação da porta TaskEventPublisher usando KafkaTemplate
-│       ├── KafkaTaskEventConsumer.java   # Consumidores do Kafka (Auditoria, Notificação e DLT)
-│       └── TaskEvent.java                # Record DTO para tráfego do evento em JSON
+│   ├── messaging/               # ADAPTADORES: Mensageria (Kafka)
+│   │   ├── KafkaTaskEventPublisher.java  # Implementação da porta TaskEventPublisher usando KafkaTemplate
+│   │   ├── KafkaTaskEventConsumer.java   # Consumidores do Kafka (Auditoria, Notificação e DLT)
+│   │   └── TaskEvent.java                # Record DTO para tráfego do evento em JSON
+│   │
+│   └── ai/                      # ADAPTADORES: IA & LLMs (LangChain4j)
+│       ├── AiConfig.java                 # Configuração condicional de beans de IA
+│       ├── LangChain4jTaskSuggester.java # Implementação real usando LangChain4j
+│       ├── LangChain4jTaskSuggesterService.java # Interface declarativa LangChain4j
+│       ├── LangChain4jSuggestion.java    # Record de retorno estruturado
+│       └── MockTaskSuggester.java        # Fallback local quando sem chave de API
 │
 └── interfaces/                  # Camada de Entrada / HTTP REST
     └── rest/
         ├── TaskController.java  # Endpoints REST expostos
+        ├── AiTaskController.java # Endpoint REST para o assistente de IA
         ├── GlobalExceptionHandler.java
         └── dto/                 # Objetos de Transferência de Dados (Requests/Responses)
 ```
@@ -82,6 +93,7 @@ Todos os endpoints utilizam o prefixo `/api/v1/tasks`:
 | `GET` | `/api/v1/tasks/{id}` | Busca uma tarefa específica por ID | ID na URL |
 | `PUT` | `/api/v1/tasks/{id}` | Atualiza os dados de uma tarefa | ID na URL + JSON no corpo |
 | `DELETE` | `/api/v1/tasks/{id}` | Remove uma tarefa do banco de dados | ID na URL |
+| `POST` | `/api/v1/tasks/ai/suggest` | Sugere prioridade, subtarefas e refina a descrição da tarefa com base no título e descrição originais | JSON no corpo da requisição (title, description) |
 
 ---
 
