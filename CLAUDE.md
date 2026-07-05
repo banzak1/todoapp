@@ -75,12 +75,7 @@ Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:
 ## Contexto da Última Sessão
 
 Carregar `notes/Sessão 2026-07-05.md` para continuidade. Pontos principais:
-1. **App em produção!** Rodando em https://todoapp-732141800025.us-east1.run.app
-2. **Stack final:** Cloud Run + Neon (PostgreSQL) + Confluent Cloud (Kafka) + Groq/Llama 3 (IA)
-3. **IA:** Groq (Llama 3.3 70B) via OpenAI-compatible API, 30 req/min grátis
-4. **IA ativada por:** variável de ambiente `LLAMA_API_KEY`
-5. **IA fallback:** `MockTaskSuggester` quando LLAMA_API_KEY não está definida
-6. **Profile de produção:** `application-production.yml` (SSL Postgres, SASL Kafka, Swagger off)
-7. **Custo:** Aproximadamente R$ 0/mês (tudo gratuito)
-8. **PR #5** mergeado na dev (Groq + correções)
-9. **Próximo passo:** Fase 7 — CI/CD (GitHub Actions) ou alternativas para Kafka (Redpanda/Upstash)
+1. **CI/CD configurado!** GitHub Actions: testa no PR, deploy no push para main
+2. **8 issues criadas** no GitHub para fases restantes (Observabilidade a Kubernetes)
+3. **Frontend pendente:** definir Angular/React/Vue e monorepo vs repo separado
+4. Decisões pendentes para a próxima sessão — ver `notes/Sessão 2026-07-05.md`
