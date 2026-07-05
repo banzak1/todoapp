@@ -33,16 +33,9 @@ spring:
     listener:
       auto-startup: false
 
-  autoconfigure:
-    exclude: dev.langchain4j.googleaigemini.spring.AutoConfig
-
-# langchain4j:
-#   google-ai-gemini:
-#     chat-model:
-#       api-key: ${GEMINI_API_KEY:}     # ← Defina GEMINI_API_KEY no ambiente para ativar
-#       model-name: gemini-2.0-flash
-#       temperature: 0.7
-#       max-output-tokens: 500
+# Config de IA (Groq/Llama 3 via OpenAI-compatible API):
+# Ativado via variável de ambiente LLAMA_API_KEY (setada no Cloud Run ou .env.local)
+# Sem a chave, o MockTaskSuggester é usado automaticamente (fallback)
 
 springdoc:
   api-docs:
