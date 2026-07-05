@@ -34,15 +34,15 @@ spring:
       auto-startup: false
 
   autoconfigure:
-    exclude: dev.langchain4j.openai.spring.AutoConfig
+    exclude: dev.langchain4j.googleaigemini.spring.AutoConfig
 
 # langchain4j:
-#   open-ai:
+#   google-ai-gemini:
 #     chat-model:
-#       api-key: ${OPENAI_API_KEY:}     # ← Defina OPENAI_API_KEY no ambiente para ativar
-#       model-name: gpt-4o-mini
+#       api-key: ${GEMINI_API_KEY:}     # ← Defina GEMINI_API_KEY no ambiente para ativar
+#       model-name: gemini-2.0-flash
 #       temperature: 0.7
-#       max-tokens: 500
+#       max-output-tokens: 500
 
 springdoc:
   api-docs:
