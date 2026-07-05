@@ -15,7 +15,19 @@
       "Bash(git add *)",
       "Bash(git commit -m 'test\\(task-crud\\): add unit tests for TaskService *)",
       "Bash(git commit -m 'test\\(task-crud\\): add controller integration tests with MockMvc *)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Read(//c/Users/lsant/**)",
+      "Read(//c/Users/lsant/.agent-reach/**)",
+      "Bash(mcporter list *)",
+      "Bash(\"C:\\\\Users\\\\lsant\\\\.agent-reach-venv\\\\Scripts\\\\mcp-server-linkedin.exe\" --transport streamable-http --port 8080)",
+      "Bash(mcporter call *)",
+      "Bash(where pdflatex *)",
+      "Bash(dpkg -l)",
+      "Bash(pip list *)",
+      "Bash(choco list *)",
+      "mcp__github__create_pull_request"
     ]
   }
 }

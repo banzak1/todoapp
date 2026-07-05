@@ -12,7 +12,7 @@ public class LangChain4jTaskSuggester implements AiTaskSuggester {
 
     @Override
     public AiSuggestion suggestSubtasks(String title, String description) {
-        var response = service.suggest(title, description);
+        var response = service.suggest(title, description != null ? description : "");
         return new AiSuggestion(
                 response.suggestedPriority(),
                 response.refinedDescription(),

@@ -1,6 +1,7 @@
-# Roadmap — 8 Fases de Aprendizado
+# Roadmap — 11 Fases de Aprendizado (Revisado em 2026-07-04)
 
-Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero. Isso simula o crescimento real de sistemas.
+Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero.
+Redis postergado, IA adicionado, Deploy como fase principal, CI/CD antes de Observabilidade.
 
 ---
 
@@ -46,19 +47,59 @@ Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero. Isso sim
 
 ---
 
-## Fase 4 — Cache
-**Objetivo:** Performance com caching e rate limiting
+## Fase 4 — Módulo de IA ✅ (Concluída em 2026-07-04)
+**Objetivo:** Assistente de IA para sugerir prioridades e subtarefas
 
-- [ ] Redis no docker-compose
-- [ ] Cache de consultas frequentes
-- [ ] Rate limiting por IP/token
-- [ ] Invalidação de cache em updates
+- [x] Porta AiTaskSuggester (interface na camada application)
+- [x] Implementação LangChain4j com fallback Mock
+- [x] Configuração condicional (ativa com API key, fallback automático)
+- [x] Endpoint REST: POST /api/v1/tasks/ai/suggest
+- [x] Testes unitários e de contrato
 
-**Tecnologias:** Redis, Spring Cache
+**Tecnologias:** LangChain4j 0.33, OpenAI API, Spring Boot
 
 ---
 
-## Fase 5 — Observabilidade
+## Fase 5 — Documentação do Vault (Em andamento)
+**Objetivo:** Preservar conhecimento do projeto com regras de negócio, fluxos e arquitetura
+
+- [x] Regras de negócio documentadas
+- [ ] Fluxos de eventos (Kafka) mapeados
+- [ ] Estrutura do banco de dados documentada
+- [ ] Decisões de design registradas com contexto
+- [ ] Guia de desenvolvimento local
+- [ ] Guia de deploy e operação
+
+**Artefatos:** Vault Obsidian (`notes/`)
+
+---
+
+## Fase 6 — Deploy em Produção
+**Objetivo:** Aplicação rodando em produção com custo zero
+
+- [ ] Setup Cloud Run (GCP Free Tier)
+- [ ] Banco PostgreSQL gerenciado (Neon/Cloud SQL free)
+- [ ] Kafka gerenciado (Confluent Cloud free tier)
+- [ ] Variáveis de ambiente e secrets (OPENAI_API_KEY, etc.)
+- [ ] Health checks e readiness no Cloud Run
+
+**Tecnologias:** Google Cloud Run, Neon (PostgreSQL), Confluent Cloud
+
+---
+
+## Fase 7 — CI/CD
+**Objetivo:** Pipeline automatizado de build, teste e deploy
+
+- [ ] GitHub Actions: build + testes
+- [ ] Build da imagem Docker
+- [ ] Deploy automático no Cloud Run
+- [ ] Rollback strategy
+
+**Tecnologias:** GitHub Actions, Docker, Cloud Run
+
+---
+
+## Fase 8 — Observabilidade
 **Objetivo:** Visibilidade do que acontece no sistema
 
 - [ ] Métricas com Micrometer + Prometheus
@@ -71,30 +112,30 @@ Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero. Isso sim
 
 ---
 
-## Fase 6 — Infra como Código
+## Fase 9 — Infra como Código
 **Objetivo:** Provisionar infraestrutura de forma declarativa
 
-- [ ] Script Terraform para provisionar VM/cloud
-- [ ] Deploy do app na infra provisionada
+- [ ] Script Terraform para provisionar Cloud Run
 - [ ] Gerenciar secrets de forma segura
+- [ ] Infra versionada junto com o código
 
-**Tecnologias:** Terraform, Cloud (AWS/GCP/Azure free tier)
-
----
-
-## Fase 7 — CI/CD
-**Objetivo:** Pipeline automatizado de build, teste e deploy
-
-- [ ] GitHub Actions: build + testes
-- [ ] Lint e análise de código
-- [ ] Build da imagem Docker
-- [ ] Deploy automático
-
-**Tecnologias:** GitHub Actions
+**Tecnologias:** Terraform, Google Cloud
 
 ---
 
-## Fase 8 — Escalabilidade
+## Fase 10 — Redis / Cache (Postergado)
+**Objetivo:** Performance com caching (prioridade baixa)
+
+- [ ] Redis no docker-compose
+- [ ] Cache de consultas frequentes
+- [ ] Rate limiting por IP/token
+- [ ] Invalidação de cache em updates
+
+**Tecnologias:** Redis, Spring Cache
+
+---
+
+## Fase 11 — Kubernetes (Horizonte Final)
 **Objetivo:** App preparado para escala horizontal
 
 - [ ] Kubernetes manifests (deployment, service, configmap, secret)
@@ -107,3 +148,4 @@ Cada fase adiciona complexidade ao **mesmo app**, sem começar do zero. Isso sim
 ---
 
 *Voltar para: [[Visão Geral do Projeto]]*
+*Ver também: [[Decisões]], [[Diretrizes]]*

@@ -107,4 +107,35 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 
 ---
 
+## 2026-07-04 — Reestruturação do Roadmap e Módulo de IA
+
+### DEC-018: Roadmap revisado — Redis postergado, IA e Deploy como prioridades
+**Decisão:** Reorganizar as 8 fases originais para 11 fases, com as seguintes mudanças:
+1. **Módulo de IA** (Fase 4) — adicionado como fase própria com LangChain4j
+2. **Redis/Cache** postergado para Fase 10 (otimização, não essencial agora)
+3. **Deploy em Produção** (Fase 6) — nova fase usando Cloud Run + free tier
+4. **Documentação do Vault** (Fase 5) — nova fase para preservar conhecimento
+5. **CI/CD** (Fase 7) agora vem antes de **Observabilidade** (Fase 8)
+
+**Motivo:** IA já estava implementada e precisava ser finalizada. Deploy em produção é mais urgente que cache. Primeiro automatiza (CI/CD), depois monitora (Observabilidade).
+
+### DEC-019: Cloud Run como alvo de deploy (GCP Free Tier)
+**Decisão:** Usar Google Cloud Run + Neon (PostgreSQL free) + Confluent Cloud (Kafka free) + OpenAI API.
+**Motivo:** Cloud Run serverless com free tier generoso (2M req/mês). Dockerfile já existe. Stack completa por R$ 0.
+
+### DEC-020: CI/CD antes de Observabilidade
+**Decisão:** GitHub Actions (CI/CD) antes de Grafana/Prometheus (Observabilidade).
+**Motivo:** Primeiro deploy manual, depois automatiza, depois monitora.
+
+### DEC-021: Fluxo de Branches dev → main
+**Decisão:** Adotar fluxo com branch `dev` de integração. Branches de trabalho: `dev-<feature>`.
+**Fluxo:** `dev-<feature>` → PR → `dev` (squash merge) → quando estável, PR → `main`.
+**Motivo:** Proteger a `main` para produção. Permitir revisão antes do merge final.
+
+### DEC-022: LangChain4j com fallback condicional
+**Decisão:** Usar `@ConditionalOnProperty` para ativar o LangChain4j apenas quando `OPENAI_API_KEY` estiver definida. Sem a chave, `MockTaskSuggester` é usado automaticamente.
+**Motivo:** Desenvolvimento local sem API key não deve quebrar. Produção com a chave ativa a IA real.
+
+---
+
 *Voltar para: [[Visão Geral do Projeto]]*

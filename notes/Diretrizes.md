@@ -34,8 +34,15 @@
 - **Padrão:** Arrange → Act → Assert
 
 ## Git
-- **Branch principal:** `main`
-- **Fluxo:** GitHub Flow (feature branches → PR → main)
+- **Branch principal:** `main` (produção)
+- **Branch de integração:** `dev`
+- **Branches de trabalho:** `dev-<nome-da-feature>` (criar sempre a partir de `dev`)
+- **Fluxo:**
+  1. `git checkout dev && git checkout -b dev-<feature>`
+  2. Desenvolver e commitar na branch
+  3. Abrir PR de `dev-<feature>` → `dev` (usar GitHub MCP)
+  4. Merge (squash) para `dev` após aprovação
+  5. Quando estável, PR de `dev` → `main` para aprovação final
 - **Conventional commits:**
   - `feat(nome): descrição` — nova feature
   - `fix(nome): descrição` — correção

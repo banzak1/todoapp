@@ -33,6 +33,10 @@ spring:
     listener:
       auto-startup: false
 
+# Config de IA (Groq/Llama 3 via OpenAI-compatible API):
+# Ativado via variável de ambiente LLAMA_API_KEY (setada no Cloud Run ou .env.local)
+# Sem a chave, o MockTaskSuggester é usado automaticamente (fallback)
+
 springdoc:
   api-docs:
     path: /api-docs

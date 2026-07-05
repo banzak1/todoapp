@@ -41,6 +41,28 @@ A skill `tlc-spec-driven` está instalada. Estrutura de specs formais em `.specs
 - Clean Code, SOLID como prática diária
 - Mensagens de commit em inglês, seguindo conventional commits
 
+## Git Workflow (Obrigatório — não esquecer)
+
+Fluxo de branches para todo o desenvolvimento:
+
+```
+main (produção) — só recebe PRs aprovados de dev
+  ↑ PR aprovado pelo usuário
+dev (integração) — branch de integração, recebe merges das features
+  ↑ PR para dev
+dev-<nome-da-feature> — branches de trabalho (ex: dev-deploy-cloud-run)
+```
+
+**Regras:**
+1. Sempre criar branch a partir de `dev`: `git checkout dev && git checkout -b dev-<feature>`
+2. Desenvolver e commitar na branch `dev-<feature>`
+3. Abrir Pull Request de `dev-<feature>` → `dev` com descrição detalhada
+4. **NUNCA aprovar ou mergear PRs por conta própria** — GitHub não permite self-approval
+5. Aguardar o usuário revisar e autorizar explicitamente ("pode mergear", "aprovado")
+6. Após autorização do usuário, fazer squash merge para `dev`
+7. Quando `dev` estiver estável, abrir PR de `dev` → `main` com descrição detalhada
+8. Aguardar autorização do usuário para mergear `dev` → `main`
+
 ## Papéis do Assistente
 
 Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:
@@ -52,10 +74,13 @@ Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:
 
 ## Contexto da Última Sessão
 
-Carregar `notes/Sessão 2026-07-01.md` para continuidade. Pontos principais:
-1. Fases 2 (Containerização) e 3 (Mensageria com Kafka) concluídas e testadas localmente via Docker.
-2. Flyway controlando com sucesso o ciclo estrutural do banco em H2 e Postgres (V1 e V2).
-3. Kafka configurado no docker-compose em modo KRaft (Zookeeperless).
-4. Produtor associado aos casos de uso do serviço (TaskService) e publicando no tópico `todo-tasks`.
-5. Consumidores criados em grupos separados com fluxo de retry resiliente (3 tentativas com backoff exponencial) e descarte em Dead Letter Topic (todo-tasks-dlt) caso haja erros ("fail" no título).
-6. Próximo passo: Fase 4 (Cache com Redis).
+Carregar `notes/Sessão 2026-07-05.md` para continuidade. Pontos principais:
+1. **App em produção!** Rodando em https://todoapp-732141800025.us-east1.run.app
+2. **Stack final:** Cloud Run + Neon (PostgreSQL) + Confluent Cloud (Kafka) + Groq/Llama 3 (IA)
+3. **IA:** Groq (Llama 3.3 70B) via OpenAI-compatible API, 30 req/min grátis
+4. **IA ativada por:** variável de ambiente `LLAMA_API_KEY`
+5. **IA fallback:** `MockTaskSuggester` quando LLAMA_API_KEY não está definida
+6. **Profile de produção:** `application-production.yml` (SSL Postgres, SASL Kafka, Swagger off)
+7. **Custo:** Aproximadamente R$ 0/mês (tudo gratuito)
+8. **PR #5** mergeado na dev (Groq + correções)
+9. **Próximo passo:** Fase 7 — CI/CD (GitHub Actions) ou alternativas para Kafka (Redpanda/Upstash)
