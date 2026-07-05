@@ -56,7 +56,11 @@
       "Bash(sed -i \"s|styleUrl: './app.scss'|styleUrl: './app.component.scss'|\" src/app/app.component.ts)",
       "Bash(sed -i \"s|/task-list'|/task-list.component'|g\" src/app/features/tasks/tasks.routes.ts)",
       "Bash(sed -i \"s|/task-form'|/task-form.component'|g\" src/app/features/tasks/tasks.routes.ts)",
-      "Bash(sed -i \"s|/task-detail'|/task-detail.component'|g\" src/app/features/tasks/tasks.routes.ts)"
+      "Bash(sed -i \"s|/task-detail'|/task-detail.component'|g\" src/app/features/tasks/tasks.routes.ts)",
+      "Bash(git fetch *)",
+      "mcp__github__list_pull_requests",
+      "Bash(gh run *)",
+      "Bash(xargs -I{} gh run view {} --log -R banzak1/todoapp-angular)"
     ]
   }
 }
