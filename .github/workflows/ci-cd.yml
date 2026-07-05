@@ -1,0 +1,82 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ dev, main ]
+
+env:
+  REGION: us-east1
+  PROJECT_ID: todoapp-banzak
+  REPO: todoapp-repo
+  SERVICE: todoapp
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+          cache: maven
+
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      - name: Run tests
+        run: ./mvnw test --no-transfer-progress
+
+  deploy:
+    name: Deploy to Cloud Run
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build and push image
+        run: |
+          gcloud builds submit \
+            --tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.SERVICE }}:latest \
+            --project ${{ env.PROJECT_ID }}
+
+      - name: Deploy to Cloud Run
+        # As env vars (Neon, Confluent, Groq) já estão configuradas no serviço
+        # Cloud Run mantém as variáveis entre deploys — só a imagem é atualizada
+        run: |
+          gcloud run deploy ${{ env.SERVICE }} \
+            --image=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.SERVICE }}:latest \
+            --platform=managed \
+            --region=${{ env.REGION }} \
+            --allow-unauthenticated \
+            --project=${{ env.PROJECT_ID }}
+
+      - name: Health check
+        run: |
+          URL=$(gcloud run services describe ${{ env.SERVICE }} \
+            --platform=managed \
+            --region=${{ env.REGION }} \
+            --format='value(status.url)')
+          echo "Service URL: $URL"
+          sleep 15
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "${URL}/api/v1/tasks" || echo "failed")
+          if [ "${HTTP_CODE}" = "200" ]; then
+            echo "✅ Health check passed!"
+          else
+            echo "⚠️  Health check returned: ${HTTP_CODE}"
+            exit 1
+          fi

@@ -75,3 +75,4 @@ notes/Sessão*.md
 .agents/
 config/
 script.md
+gcp-sa-key.json
