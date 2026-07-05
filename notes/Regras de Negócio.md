@@ -86,9 +86,10 @@ Response: { "suggestedPriority": "HIGH|MEDIUM|LOW", "refinedDescription": "strin
 ```
 
 ### Comportamento
-- **Com OPENAI_API_KEY:** Usa LangChain4j + GPT-4o-mini para gerar sugestões reais
-- **Sem OPENAI_API_KEY:** Retorna sugestões mockadas (prioridade HIGH, subtarefas genéricas)
+- **Com GEMINI_API_KEY:** Usa LangChain4j + Google Gemini 2.0 Flash para gerar sugestões reais (gratuito)
+- **Sem GEMINI_API_KEY:** Retorna sugestões mockadas (prioridade HIGH, subtarefas genéricas)
 - A troca entre real e mock é automática via `@ConditionalOnProperty`
+- API Key gratuita em: https://aistudio.google.com/apikey
 
 ---
 
