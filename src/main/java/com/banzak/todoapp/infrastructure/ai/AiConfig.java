@@ -36,7 +36,7 @@ public class AiConfig {
     public LangChain4jTaskSuggesterService langchain4jTaskSuggesterService(ChatModel chatModel) {
         log.info("Inicializando serviço de IA declarativo da LangChain4j.");
         return AiServices.builder(LangChain4jTaskSuggesterService.class)
-                .chatLanguageModel(chatModel)
+                .chatModel(chatModel)
                 .build();
     }
 
