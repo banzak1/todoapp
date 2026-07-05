@@ -31,10 +31,10 @@ spring:
     properties:
       sasl:
         jaas:
-          config: ${SPRING_KAFKA_PROPERTIES_SASL_JAAS_CONFIG}
-        mechanism: ${SPRING_KAFKA_PROPERTIES_SASL_MECHANISM:PLAIN}
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='${KAFKA_SASL_USERNAME}' password='${KAFKA_SASL_PASSWORD}';
+        mechanism: PLAIN
       security:
-        protocol: ${SPRING_KAFKA_PROPERTIES_SECURITY_PROTOCOL:SASL_SSL}
+        protocol: SASL_SSL
       session:
         timeout:
           ms: 45000
