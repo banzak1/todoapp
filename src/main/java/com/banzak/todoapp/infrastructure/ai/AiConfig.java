@@ -2,7 +2,7 @@ package com.banzak.todoapp.infrastructure.ai;
 
 import com.banzak.todoapp.application.ai.AiTaskSuggester;
 import dev.langchain4j.model.chat.ChatModel;
-import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
+import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,31 +19,32 @@ public class AiConfig {
     private static final Logger log = LoggerFactory.getLogger(AiConfig.class);
 
     @Bean
-    @Conditional(GeminiApiKeySet.class)
-    public ChatModel geminiChatModel() {
-        String apiKey = System.getenv("GEMINI_API_KEY");
-        log.info("Criando ChatModel com Google Gemini.");
-        return GoogleAiGeminiChatModel.builder()
+    @Conditional(GroqApiKeySet.class)
+    public ChatModel groqChatModel() {
+        String apiKey = System.getenv("LLAMA_API_KEY");
+        log.info("Criando ChatModel com Groq (Llama 3).");
+        return OpenAiChatModel.builder()
                 .apiKey(apiKey)
-                .modelName("gemini-2.0-flash")
+                .baseUrl("https://api.groq.com/openai/v1")
+                .modelName("llama-3.3-70b-versatile")
                 .temperature(0.7)
-                .maxOutputTokens(500)
+                .maxTokens(500)
                 .build();
     }
 
     @Bean
-    @Conditional(GeminiApiKeySet.class)
+    @Conditional(GroqApiKeySet.class)
     public LangChain4jTaskSuggesterService langchain4jTaskSuggesterService(ChatModel chatModel) {
-        log.info("Inicializando serviço de IA declarativo da LangChain4j.");
+        log.info("Inicializando serviço de IA declarativo da LangChain4j com Groq.");
         return AiServices.builder(LangChain4jTaskSuggesterService.class)
                 .chatModel(chatModel)
                 .build();
     }
 
     @Bean
-    @Conditional(GeminiApiKeySet.class)
+    @Conditional(GroqApiKeySet.class)
     public AiTaskSuggester langchain4jTaskSuggester(LangChain4jTaskSuggesterService service) {
-        log.info("Ativando adaptador de IA real (Gemini).");
+        log.info("Ativando adaptador de IA real (Groq/Llama 3).");
         return new LangChain4jTaskSuggester(service);
     }
 
@@ -55,16 +56,17 @@ public class AiConfig {
     }
 
     /**
-     * Condition that matches when GEMINI_API_KEY environment variable is set and non-empty.
+     * Condition that matches when LLAMA_API_KEY environment variable is set and non-empty.
      */
-    public static class GeminiApiKeySet implements org.springframework.context.annotation.Condition {
+    public static class GroqApiKeySet implements org.springframework.context.annotation.Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            String apiKey = context.getEnvironment().getProperty("GEMINI_API_KEY");
+            String apiKey = context.getEnvironment().getProperty("LLAMA_API_KEY");
             if (apiKey == null || apiKey.isBlank()) {
-                log.info("GEMINI_API_KEY não definida. Usando MockTaskSuggester.");
+                log.info("LLAMA_API_KEY não definida. Usando MockTaskSuggester.");
                 return false;
             }
+            log.info("LLAMA_API_KEY detectada, ativando modo real (Groq/Llama 3).");
             return true;
         }
     }
