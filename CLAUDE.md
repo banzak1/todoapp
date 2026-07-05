@@ -57,10 +57,11 @@ dev-<nome-da-feature> — branches de trabalho (ex: dev-deploy-cloud-run)
 1. Sempre criar branch a partir de `dev`: `git checkout dev && git checkout -b dev-<feature>`
 2. Desenvolver e commitar na branch `dev-<feature>`
 3. Abrir Pull Request de `dev-<feature>` → `dev` com descrição detalhada
-4. **NUNCA aprovar ou mergear PRs** — apenas abrir e aguardar aprovação do usuário
-5. Após aprovação do usuário, fazer squash merge para `dev`
-6. Quando `dev` estiver estável, abrir PR de `dev` → `main` com descrição detalhada
-7. **NUNCA aprovar ou mergear PR de `dev` → `main`** — o usuário aprova
+4. **NUNCA aprovar ou mergear PRs por conta própria** — GitHub não permite self-approval
+5. Aguardar o usuário revisar e autorizar explicitamente ("pode mergear", "aprovado")
+6. Após autorização do usuário, fazer squash merge para `dev`
+7. Quando `dev` estiver estável, abrir PR de `dev` → `main` com descrição detalhada
+8. Aguardar autorização do usuário para mergear `dev` → `main`
 
 ## Papéis do Assistente
 
