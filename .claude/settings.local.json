@@ -62,7 +62,10 @@
       "Bash(gh run *)",
       "Bash(xargs -I{} gh run view {} --log -R banzak1/todoapp-angular)",
       "Bash(gcloud run revisions list *)",
-      "Bash(./mvnw clean *)"
+      "Bash(./mvnw clean *)",
+      "WebFetch(domain:todoapp-angular-odyvrp7bw-leonardo-santanas-projects-5307d1b4.vercel.app)",
+      "Bash(python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(i['name']\\) for i in data]\")",
+      "Bash(python3 *)"
     ]
   }
 }
