@@ -16,7 +16,7 @@ O projeto evolui adicionando novas camadas de complexidade técnica no mesmo rep
 4. **Fase 4 — Cache & Rate Limiting** (⚠️ Próximo Passo): Otimização de performance com Redis para consultas frequentes e implementação de controle de vazão de requisições por IP ou Token.
 5. **Fase 5 — Observabilidade**: Monitoramento completo com Prometheus e Grafana, tracing distribuído e logs estruturados em formato JSON.
 6. **Fase 6 — Infraestrutura como Código (IaC)**: Provisionamento declarativo de recursos em nuvem usando Terraform.
-7. **Fase 7 — CI/CD**: Automatização da esteira de integração e entrega contínua (CI/CD) via GitHub Actions (validação, testes, build da imagem e deploy).
+7. **Fase 7 — CI/CD** (✅ Concluída): Automatização da esteira de integração e entrega contínua (CI/CD) via GitHub Actions (validação, testes, build da imagem e deploy no Google Cloud Run).
 8. **Fase 8 — Escalabilidade & Orquestração**: Implantação escalável da aplicação em Kubernetes (com Minikube ou K3s), definindo manifests, probes de integridade (Liveness/Readiness) e auto-scaling (HPA).
 
 ---
@@ -24,7 +24,8 @@ O projeto evolui adicionando novas camadas de complexidade técnica no mesmo rep
 ## 🛠️ Stack Tecnológica Atualizada (Até Fase 3 + Módulo de IA)
 
 *   **Java 21 LTS** e **Spring Boot 3.5.x** (Spring Web, Spring Data JPA, Spring Validation, Spring Kafka)
-*   **LangChain4j 0.33.x** (Integração com Modelos de IA Generativa e Outputs Estruturados)
+*   **LangChain4j 0.33.x** (Integração com Modelos de IA Generativa via Groq/Llama 3)
+*   **GitHub Actions & Google Cloud Run** (Pipeline CI/CD e Deploy Serverless)
 *   **PostgreSQL 16** (Banco de dados de produção / containerizado)
 *   **H2 Database** (Banco de dados em memória para desenvolvimento rápido)
 *   **Flyway Database Migrations** (Controle e histórico de esquema de banco de dados)
@@ -76,6 +77,8 @@ src/main/java/com/banzak/todoapp/
         ├── TaskController.java  # Endpoints REST expostos
         ├── AiTaskController.java # Endpoint REST para o assistente de IA
         ├── GlobalExceptionHandler.java
+        ├── config/              # Configurações Web
+        │   └── CorsConfig.java  # Configuração de CORS para permitir acesso do Front-End (Angular)
         └── dto/                 # Objetos de Transferência de Dados (Requests/Responses)
 ```
 
