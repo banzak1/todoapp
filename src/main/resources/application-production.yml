@@ -1,7 +1,7 @@
 # Profile: production
 # Usado em: Cloud Run (GCP)
 # Banco: Neon (PostgreSQL) — exige sslmode=require
-# Kafka: Confluent Cloud — exige SASL_SSL
+# Kafka: Aiven Kafka Free Tier — exige SASL_SSL + SCRAM-SHA-256
 #
 # Todas as credenciais vêm de variáveis de ambiente configuradas no Cloud Run
 
@@ -31,8 +31,8 @@ spring:
     properties:
       sasl:
         jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='${KAFKA_SASL_USERNAME}' password='${KAFKA_SASL_PASSWORD}';
-        mechanism: PLAIN
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username='${KAFKA_SASL_USERNAME}' password='${KAFKA_SASL_PASSWORD}';
+        mechanism: SCRAM-SHA-256
       security:
         protocol: SASL_SSL
       session:
