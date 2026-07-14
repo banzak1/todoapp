@@ -52,7 +52,12 @@ jobs:
         run: |
           gcloud builds submit \
             --tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.SERVICE }}:latest \
-            --project ${{ env.PROJECT_ID }}
+            --project ${{ env.PROJECT_ID }} \
+            --async \
+            --format='value(id)' > build_id.txt
+          BUILD_ID=$(cat build_id.txt)
+          echo "Build ID: $BUILD_ID"
+          gcloud builds wait "$BUILD_ID" --project ${{ env.PROJECT_ID }}
 
       - name: Deploy to Cloud Run
         # As env vars (Neon, Confluent, Groq) já estão configuradas no serviço
