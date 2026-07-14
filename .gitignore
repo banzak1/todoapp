@@ -76,3 +76,4 @@ notes/Sessão*.md
 config/
 script.md
 gcp-sa-key.json
+*.code-workspace
