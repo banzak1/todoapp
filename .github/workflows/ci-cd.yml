@@ -50,14 +50,25 @@ jobs:
 
       - name: Build and push image
         run: |
-          gcloud builds submit \
+          BUILD_ID=$(gcloud builds submit \
             --tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.SERVICE }}:latest \
             --project ${{ env.PROJECT_ID }} \
             --async \
-            --format='value(id)' > build_id.txt
-          BUILD_ID=$(cat build_id.txt)
+            --format='value(id)')
           echo "Build ID: $BUILD_ID"
-          gcloud builds wait "$BUILD_ID" --project ${{ env.PROJECT_ID }}
+          while true; do
+            STATUS=$(gcloud builds describe "$BUILD_ID" \
+              --project ${{ env.PROJECT_ID }} \
+              --format='value(status)')
+            echo "Build status: $STATUS"
+            case "$STATUS" in
+              SUCCESS) echo "✅ Build succeeded!"; break ;;
+              FAILURE|INTERNAL|ERROR|TIMEOUT)
+                echo "❌ Build failed with status: $STATUS"
+                exit 1 ;;
+              *) sleep 15 ;;
+            esac
+          done
 
       - name: Deploy to Cloud Run
         # As env vars (Neon, Confluent, Groq) já estão configuradas no serviço
