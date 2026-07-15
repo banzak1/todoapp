@@ -74,26 +74,28 @@ Redis postergado, IA adicionado, Deploy como fase principal, CI/CD antes de Obse
 
 ---
 
-## Fase 6 — Deploy em Produção
+## Fase 6 — Deploy em Produção ✅ (Concluída em 2026-07-14)
 **Objetivo:** Aplicação rodando em produção com custo zero
 
-- [ ] Setup Cloud Run (GCP Free Tier)
-- [ ] Banco PostgreSQL gerenciado (Neon/Cloud SQL free)
-- [ ] Kafka gerenciado (Confluent Cloud free tier)
-- [ ] Variáveis de ambiente e secrets (OPENAI_API_KEY, etc.)
-- [ ] Health checks e readiness no Cloud Run
+- [x] Setup Cloud Run (GCP Free Tier)
+- [x] Banco PostgreSQL gerenciado (Neon Free Tier)
+- [x] Kafka gerenciado (Aiven Kafka Free Tier — migrado da Confluent Cloud)
+- [x] Variáveis de ambiente e secrets (OPENAI_API_KEY, etc.)
+- [x] Health checks e readiness no Cloud Run
+- [x] CI/CD funcional com polling loop para deploy automático
 
-**Tecnologias:** Google Cloud Run, Neon (PostgreSQL), Confluent Cloud
+**Tecnologias:** Google Cloud Run, Neon (PostgreSQL), Aiven Kafka (Free Tier)
 
 ---
 
-## Fase 7 — CI/CD
+## Fase 7 — CI/CD ✅ (Concluída em 2026-07-14)
 **Objetivo:** Pipeline automatizado de build, teste e deploy
 
-- [ ] GitHub Actions: build + testes
-- [ ] Build da imagem Docker
-- [ ] Deploy automático no Cloud Run
-- [ ] Rollback strategy
+- [x] GitHub Actions: build + testes
+- [x] Build da imagem Docker
+- [x] Deploy automático no Cloud Run
+- [x] Correção: polling loop com `gcloud builds describe` (evita erro de log streaming)
+- [x] Rollback strategy (Cloud Run mantém revisões anteriores)
 
 **Tecnologias:** GitHub Actions, Docker, Cloud Run
 

@@ -1,35 +1,38 @@
 # todoApp — Laboratório Evolutivo de Engenharia de Software e DevOps
 
-O **todoApp** é um laboratório de aprendizado contínuo, estruturado não apenas como uma aplicação de gerenciamento de tarefas, mas como um projeto evolutivo. O objetivo principal é evoluir esta base de código progressivamente ao longo de **8 fases**, simulando o ciclo de vida real de um sistema em produção — partindo da fundação até a alta disponibilidade, observabilidade e escalabilidade horizontal.
+O **todoApp** é um laboratório de aprendizado contínuo, estruturado não apenas como uma aplicação de gerenciamento de tarefas, mas como um projeto evolutivo. O objetivo principal é evoluir esta base de código progressivamente ao longo de **11 fases**, simulando o ciclo de vida real de um sistema em produção — partindo da fundação até a alta disponibilidade, observabilidade e escalabilidade horizontal.
 
 Este repositório serve como portfólio técnico e ambiente de experimentação prática de arquitetura de software, DevOps e engenharia de confiabilidade (SRE).
 
 ---
 
-## 🚀 O Roadmap das 8 Fases
+## 🚀 O Roadmap das 11 Fases
 
 O projeto evolui adicionando novas camadas de complexidade técnica no mesmo repositório:
 
 1. **Fase 1 — Fundação** (✅ Concluída): API REST funcional desenvolvida em Java 21 e Spring Boot 3.x, persistência relacional com PostgreSQL (local) / H2 (dev), testes unitários, testes de integração com Testcontainers e documentação interativa com Swagger/OpenAPI.
 2. **Fase 2 — Containerização** (✅ Concluída): Empacotamento da aplicação com Docker (build multi-stage leve com JRE 21 e usuário não-root) e orquestração do ambiente local (App + Banco) via Docker Compose. Introdução do **Flyway** para controle de versionamento do esquema do banco de dados.
 3. **Fase 3 — Mensageria** (✅ Concluída): Introdução de processamento assíncrono orientado a eventos usando Apache Kafka (modo KRaft / Zookeeperless). Implementação de produtores de eventos de tarefas e múltiplos grupos de consumidores (Auditoria e Notificações simuladas), com resiliência baseada em **Dead Letter Topic (DLT)** com retentativas e backoff exponencial.
-4. **Fase 4 — Cache & Rate Limiting** (⚠️ Próximo Passo): Otimização de performance com Redis para consultas frequentes e implementação de controle de vazão de requisições por IP ou Token.
-5. **Fase 5 — Observabilidade**: Monitoramento completo com Prometheus e Grafana, tracing distribuído e logs estruturados em formato JSON.
-6. **Fase 6 — Infraestrutura como Código (IaC)**: Provisionamento declarativo de recursos em nuvem usando Terraform.
-7. **Fase 7 — CI/CD** (✅ Concluída): Automatização da esteira de integração e entrega contínua (CI/CD) via GitHub Actions (validação, testes, build da imagem e deploy no Google Cloud Run).
-8. **Fase 8 — Escalabilidade & Orquestração**: Implantação escalável da aplicação em Kubernetes (com Minikube ou K3s), definindo manifests, probes de integridade (Liveness/Readiness) e auto-scaling (HPA).
+4. **Fase 4 — Módulo de IA** (✅ Concluída): Assistente de IA com LangChain4j + Groq/Llama 3 para sugerir prioridades, subtarefas e refinar descrições. Fallback automático para MockTaskSuggester quando não há API key.
+5. **Fase 5 — Documentação do Vault** (⚠️ Em andamento): Preservação de conhecimento do projeto com regras de negócio, fluxos Kafka, estrutura do banco e guias de dev/deploy no vault Obsidian.
+6. **Fase 6 — Deploy em Produção** (✅ Concluída): Aplicação rodando no Google Cloud Run com Neon (PostgreSQL Free) e Aiven Kafka (Free Tier). CI/CD com deploy automático via GitHub Actions.
+7. **Fase 7 — CI/CD** (✅ Concluída): Pipeline automatizado de build, teste e deploy via GitHub Actions com polling loop para monitoramento de builds no Cloud Build.
+8. **Fase 8 — Observabilidade**: Monitoramento completo com Prometheus e Grafana, tracing distribuído e logs estruturados em formato JSON.
+9. **Fase 9 — Infraestrutura como Código (IaC)**: Provisionamento declarativo de recursos em nuvem usando Terraform.
+10. **Fase 10 — Redis / Cache**: Otimização de performance com Redis para consultas frequentes e rate limiting.
+11. **Fase 11 — Kubernetes**: Implantação escalável da aplicação em Kubernetes (com Minikube ou K3s), definindo manifests, probes de integridade (Liveness/Readiness) e auto-scaling (HPA).
 
 ---
 
-## 🛠️ Stack Tecnológica Atualizada (Até Fase 3 + Módulo de IA)
+## 🛠️ Stack Tecnológica Atual
 
 *   **Java 21 LTS** e **Spring Boot 3.5.x** (Spring Web, Spring Data JPA, Spring Validation, Spring Kafka)
 *   **LangChain4j 0.33.x** (Integração com Modelos de IA Generativa via Groq/Llama 3)
 *   **GitHub Actions & Google Cloud Run** (Pipeline CI/CD e Deploy Serverless)
-*   **PostgreSQL 16** (Banco de dados de produção / containerizado)
+*   **PostgreSQL 16** via **Neon** (Banco de dados gerenciado Free Tier)
 *   **H2 Database** (Banco de dados em memória para desenvolvimento rápido)
 *   **Flyway Database Migrations** (Controle e histórico de esquema de banco de dados)
-*   **Apache Kafka (Confluent cp-kafka)** (Broker de eventos rodando em modo KRaft/Zookeeperless)
+*   **Apache Kafka** via **Aiven Kafka Free Tier** (Broker de eventos gerenciado, SASL/SCRAM-SHA-256)
 *   **Lombok** (Produtividade e redução de boilerplate)
 *   **Springdoc OpenAPI 2.8.x (Swagger UI)** (Documentação e teste interativo da API)
 *   **JUnit 5 & Mockito** (Testes unitários e mocks de comportamento)
@@ -147,6 +150,28 @@ Este modo inicia a aplicação usando banco em memória H2. **Nota:** O Kafka Li
 ./mvnw spring-boot:run
 ```
 *   **Console H2:** `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:todoapp`, Username: `sa`)
+
+---
+
+## 🚀 Deploy em Produção
+
+A aplicação está disponível em produção com custo zero (Free Tiers):
+
+| Serviço | Provedor | URL / Config |
+|---|---|---|
+| **API Backend** | Google Cloud Run | `https://todoapp-5h7f6ghm5a-ue.a.run.app` |
+| **Banco de Dados** | Neon (PostgreSQL Free) | Gerenciado, SSL obrigatório |
+| **Kafka** | Aiven Kafka Free Tier | SCRAM-SHA-256, 5 topics |
+| **IA (LLM)** | Groq via OpenAI-compatible API | Llama 3 (gratuito) |
+
+### CI/CD — GitHub Actions
+
+O pipeline executa automaticamente em:
+
+1. **Push para `main`**: Testes → Build Docker → Deploy no Cloud Run
+2. **Pull Request para `dev` ou `main`**: Testes (validação)
+
+O build usa `gcloud builds submit --async` com polling loop via `gcloud builds describe` para monitorar o status — evitando problemas de permissão de log streaming.
 
 ---
 
