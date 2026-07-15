@@ -26,11 +26,14 @@ RUN addgroup --system spring && adduser --system spring --ingroup spring
 RUN apk add --no-cache openssl && \
     openssl s_client -connect kafka-228e503d-todoapp-kafka.j.aivencloud.com:16350 \
       -showcerts </dev/null 2>/dev/null | \
-      openssl x509 -inform PEM -out /tmp/aiven-ca.pem && \
-    keytool -importcert -noprompt -trustcacerts -alias aiven-kafka-ca \
-      -file /tmp/aiven-ca.pem \
-      -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit && \
-    rm /tmp/aiven-ca.pem
+      sed -n '/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p' | \
+      awk 'BEGIN { f="/tmp/cert-all.pem" } /-----BEGIN CERTIFICATE-----/{f="/tmp/cert-" NR ".pem"} {print > f}' && \
+    for f in /tmp/cert-*.pem; do \
+      keytool -importcert -noprompt -trustcacerts \
+        -alias "aiven-$(basename $f .pem)" -file "$f" \
+        -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit; \
+    done && \
+    rm -f /tmp/cert-*.pem /tmp/cert-all.pem
 
 USER spring:spring
 
