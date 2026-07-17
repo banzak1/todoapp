@@ -138,4 +138,23 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 
 ---
 
+## 2026-07-14 — Deploy Fix e Migração Kafka Aiven
+
+### DEC-029: Migração Confluent Cloud → Aiven Kafka Free Tier
+**Decisão:** Migrar o Kafka gerenciado da Confluent Cloud para o Aiven Kafka Free Tier.
+**Motivo:** Créditos iniciais de $400 da Confluent já consumiram $174. Aiven Free Tier é permanentemente gratuito ($0/mês, sem cartão de crédito), com 5 topics e Schema Registry incluso.
+**Como aplicar:** Novo profile `application-production.yml` com SASL/SCRAM-SHA-256 (Aiven) ao invés de SASL/PLAIN (Confluent). Env vars atualizadas no Cloud Run.
+
+### DEC-030: CI/CD com polling loop ao invés de log streaming
+**Decisão:** Usar `gcloud builds submit --async` + polling loop com `gcloud builds describe` para monitorar builds no Cloud Build.
+**Motivo:** `gcloud builds submit` tenta streamar logs, mas o GitHub Actions runner não tem permissão para ler o bucket de logs. `--async` separa o submit do log streaming. `gcloud builds wait` não existe no Cloud SDK 575.
+**Como aplicar:** Polling loop no workflow: `while true; do STATUS=$(gcloud builds describe "$BUILD_ID" --format='value(status)'); case $STATUS in SUCCESS) break;; FAILURE|...) exit 1;; *) sleep 15;; esac; done`
+
+### DEC-031: Extração da cadeia de certificados TLS no Dockerfile
+**Decisão:** Extrair a cadeia completa de certificados TLS via `openssl s_client -showcerts` no Dockerfile e importar cada certificado no JVM `cacerts` com `keytool`.
+**Motivo:** Aiven Kafka Free Tier usa um Project CA próprio que não está no truststore padrão do Java (eclipse-temurin). O `openssl x509` extrai apenas o primeiro certificado (servidor), não o CA.
+**Como aplicar:** `sed -n '/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p'` + `awk` para dividir cada PEM + loop `for` com `keytool -importcert` no Dockerfile.
+
+---
+
 *Voltar para: [[Visão Geral do Projeto]]*

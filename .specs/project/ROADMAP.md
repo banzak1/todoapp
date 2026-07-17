@@ -5,11 +5,11 @@
 | 1 | **Fundação** — Spring Boot + PostgreSQL + CRUD | ✅ Concluído |
 | 2 | **Containerização** — Docker + Docker Compose | ✅ Concluído |
 | 3 | **Mensageria** — Apache Kafka (KRaft) | ✅ Concluído |
-| 4 | **Módulo de IA** — LangChain4j + OpenAI | ✅ Concluído |
+| 4 | **Módulo de IA** — LangChain4j + Groq/Llama | ✅ Concluído |
 | 5 | **Documentação do Vault** — Obsidian notes | 🔶 Em andamento |
-| 6 | **Deploy em Produção** — Cloud Run + Neon + Confluent | ✅ Concluído |
+| 6 | **Deploy em Produção** — Cloud Run + Neon + Aiven Kafka | ✅ Concluído |
 | 7 | **CI/CD** — GitHub Actions | ✅ Concluído |
-| — | **Frontend Angular** (novo repositório) | ⏳ **Foco atual** |
+| — | **Frontend Angular** (repositório `todoapp-angular`) | ✅ Concluído |
 | 8 | **Observabilidade** — Prometheus + Grafana | ⏳ Pendente |
 | 9 | **Infra como Código** — Terraform | ⏳ Pendente |
 | 10 | **Cache** — Redis | ⏳ Pendente |
@@ -17,8 +17,8 @@
 
 ## Próximos Marcos
 
-1. Spec + Design do Frontend Angular
-2. Criação do repositório todoapp-angular
-3. Implementação do frontend (CRUD + filtros + IA)
-4. CI/CD do frontend (deploy no Cloud Run ou Vercel/Netlify)
-5. Release: todoApp com Frontend
+1. Iniciar Fase 8: métricas, logs estruturados e tracing
+2. Criar dashboards e alertas no Grafana
+3. Provisionar infraestrutura com Terraform (Fase 9)
+4. Implementar cache/rate limiting com Redis (Fase 10)
+5. Preparar manifests e autoscaling Kubernetes (Fase 11)

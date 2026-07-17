@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-O **todoApp** é um laboratório de aprendizado contínuo — um projeto único que evolui em complexidade ao longo de 8 fases, simulando o crescimento real de um sistema em produção.
+O **todoApp** é um laboratório de aprendizado contínuo — um projeto único que evolui em complexidade ao longo de 11 fases, simulando o crescimento real de um sistema em produção.
 
 Não se trata apenas de "mais um app de tarefas", mas de uma plataforma onde cada iteração introduz uma tecnologia ou prática de mercado (Docker, Kafka, Redis, Grafana, Terraform, CI/CD, Kubernetes).
 

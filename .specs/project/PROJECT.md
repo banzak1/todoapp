@@ -19,10 +19,10 @@
 - Database: PostgreSQL 16
 - Build: Maven
 - Mensageria: Apache Kafka (KRaft mode)
-- IA: LangChain4j + OpenAI
+- IA: LangChain4j + Groq/Llama (API compatível com OpenAI), com fallback mock local
 
 **Frontend (novo repositório):**
-- Framework: Angular (latest)
+- Framework: Angular 21
 - Language: TypeScript
 - UI: Angular Material / Tailwind CSS
 - Build: Angular CLI
@@ -31,6 +31,7 @@
 - Containerização: Docker + Docker Compose
 - CI/CD: GitHub Actions
 - Deploy: Cloud Run (GCP Free Tier)
+- Kafka gerenciado: Aiven Kafka Free Tier (produção)
 - Cloud: Google Cloud Platform
 
 ## Roadmap — 11 Fases
@@ -70,5 +71,5 @@
 - Timeline: Sem prazo fixo, foco em aprendizado de qualidade
 - Technical: Java 21 LTS, Spring Boot 3.x, Maven, PostgreSQL 16, Angular
 - Environment: WSL2 Ubuntu para desenvolvimento
-- Resources: Cloud gratuito (GCP Free Tier, Neon PostgreSQL, Confluent Cloud free)
+- Resources: Cloud gratuito (GCP Free Tier, Neon PostgreSQL, Aiven Kafka Free Tier)
 - Frontend: repositório GitHub separado (todoapp-angular)
