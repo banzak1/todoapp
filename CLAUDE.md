@@ -2,7 +2,7 @@
 
 ## Projeto
 
-O **todoApp** é um laboratório de aprendizado contínuo, não apenas um app de tarefas. O objetivo é evoluir progressivamente por 8 fases, cada uma adicionando uma camada de complexidade real (Docker, Kafka, Redis, Grafana, Terraform, CI/CD, Kubernetes). O projeto serve como portfólio técnico e preparação para entrevistas.
+O **todoApp** é um laboratório de aprendizado contínuo, não apenas um app de tarefas. O objetivo é evoluir progressivamente por 11 fases, cada uma adicionando uma camada de complexidade real (Docker, Kafka, IA, deploy, CI/CD, observabilidade, Terraform, Redis e Kubernetes). O projeto serve como portfólio técnico e preparação para entrevistas.
 
 **Stack alvo:** Java 21 + Spring Boot 3 + PostgreSQL → Docker → Kafka → Redis → Grafana/Prometheus → Terraform → GitHub Actions → Kubernetes
 
@@ -13,7 +13,7 @@ O vault do Obsidian está em `notes/`. **Sempre carregar estes arquivos no iníc
 - `notes/Roadmap.md`
 - `notes/Diretrizes.md`
 - `notes/Decisões.md`
-- `notes/Sessão 2026-06-25.md` (última sessão)
+- `notes/Sessão 2026-07-14.md` (última sessão registrada)
 - `notes/Estratégia de Carreira.md` (se contexto for carreira/vagas)
 - `notes/Vagas Ativas.md` (se contexto for carreira/vagas)
 
@@ -74,8 +74,9 @@ Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:
 
 ## Contexto da Última Sessão
 
-Carregar `notes/Sessão 2026-07-05.md` para continuidade. Pontos principais:
-1. **CI/CD configurado!** GitHub Actions: testa no PR, deploy no push para main
-2. **8 issues criadas** no GitHub para fases restantes (Observabilidade a Kubernetes)
-3. **Frontend pendente:** definir Angular/React/Vue e monorepo vs repo separado
-4. Decisões pendentes para a próxima sessão — ver `notes/Sessão 2026-07-05.md`
+Carregar `notes/Sessão 2026-07-14.md` para continuidade. Pontos principais:
+1. **CI/CD operacional:** GitHub Actions testa PRs e faz build/deploy no push para `main`, usando polling do Cloud Build.
+2. **Kafka de produção migrado:** Confluent Cloud foi substituído pelo Aiven Kafka Free Tier, com SASL/SCRAM-SHA-256.
+3. **TLS do Aiven corrigido:** a cadeia de certificados é importada no truststore JVM durante o build da imagem.
+4. **Frontend Angular e CORS já estão concluídos:** o frontend vive no repositório separado `todoapp-angular`.
+5. Próximos focos: Fase 8 (observabilidade), seguida de Terraform, Redis e Kubernetes.
