@@ -37,7 +37,8 @@
 **Decisão:** Dead Letter Topic com @RetryableTopic para mensagens com falha.
 
 ### DEC-019: Cloud Run como alvo de deploy (2026-07-04)
-**Decisão:** Google Cloud Run + Neon (PostgreSQL free) + Confluent Cloud (Kafka free).
+**Decisão original:** Google Cloud Run + Neon (PostgreSQL free) + Confluent Cloud (Kafka free).
+**Estado atual:** Kafka de produção usa Aiven Kafka Free Tier; a migração está registrada nas decisões de 2026-07-14.
 
 ### DEC-020: CI/CD antes de Observabilidade (2026-07-04)
 **Decisão:** GitHub Actions primeiro, depois Grafana/Prometheus.
@@ -68,7 +69,7 @@ Nenhum ativo.
 - Testcontainers > H2 para testes de integração — mesma sintaxe SQL que produção
 - Kafka KRaft reduz complexidade significativamente vs Zookeeper
 - LangChain4j + Groq/Llama funciona bem como alternativa gratuita à OpenAI
-- Cloud Run + Neon + Confluent Cloud = stack R$ 0
+- Cloud Run + Neon + Aiven Kafka = stack de produção baseada em free tiers
 - GitHub Actions + Cloud Build = pipeline confiável
 
 ## Preferences
@@ -80,11 +81,12 @@ Nenhum ativo.
 
 ## Active Session
 
-**2026-07-05 — CI/CD, Deploy, Issues, Decisão Frontend**
-- CI/CD com GitHub Actions configurado ✅
-- 8 issues criadas no GitHub para fases restantes
-- Frontend Angular decidido (repositório separado) ✅
-- Próximo passo: criar spec do frontend e implementar
+**2026-07-14 — Correção de deploy e migração Kafka Aiven**
+- CI/CD com GitHub Actions operacional, incluindo polling do Cloud Build ✅
+- Kafka de produção migrado da Confluent Cloud para Aiven Kafka Free Tier ✅
+- Cadeia de certificados TLS do Aiven importada no truststore JVM ✅
+- Frontend Angular no repositório separado `todoapp-angular` e CORS concluídos ✅
+- Próximo passo: iniciar a Fase 8 (observabilidade)
 
 ## Deferred Ideas
 

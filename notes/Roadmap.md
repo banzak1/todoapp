@@ -56,7 +56,7 @@ Redis postergado, IA adicionado, Deploy como fase principal, CI/CD antes de Obse
 - [x] Endpoint REST: POST /api/v1/tasks/ai/suggest
 - [x] Testes unitários e de contrato
 
-**Tecnologias:** LangChain4j 0.33, OpenAI API, Spring Boot
+**Tecnologias:** LangChain4j 1.7.1, Groq/Llama via API compatível com OpenAI, Spring Boot
 
 ---
 
