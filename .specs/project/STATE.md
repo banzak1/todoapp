@@ -59,9 +59,32 @@
 **Decisão:** Angular standalone components, Signals, repositório todoapp-angular.
 **Motivo:** Projetos desacoplados, CI/CD independente, cada um com seu ciclo de vida.
 
+### DEC-026: Observabilidade local com produção preparada por configuração (2026-07-17)
+**Decisão:** Implementar e validar Prometheus, Grafana e Grafana Tempo apenas localmente.
+Em produção, expor apenas health, info e Prometheus; usar logs estruturados, correlation ID
+e instrumentação/exportação OTLP configurável, desabilitada por padrão.
+**Motivo:** Aprender o fluxo completo sem adicionar custo ou operação cloud nesta fase.
+**Trade-off:** Não haverá consulta de traces reais de produção até uma decisão posterior de backend, retenção e acesso.
+**Impacto:** O código precisa separar configuração de ambiente da instrumentação, sem alterar o deploy Cloud Run atual.
+
 ## Blockers
 
-Nenhum ativo.
+### B-001: Baseline de testes e ferramentas locais precisa de normalização (2026-07-17) — Resolvido parcialmente
+
+**Impacto original:** A validação offline não havia concluído a suíte e o contexto Spring
+iniciava um KafkaAdmin contra `localhost:9092`.
+
+**Evidência atual:** Em 2026-07-17, `./mvnw test` passou com 42 testes, 0 failures,
+0 errors e 0 skipped. `TaskRepositoryTest` confirma Docker/Testcontainers funcional.
+`TodoappApplicationTests` ainda registra aviso de conexão do KafkaAdmin, mas passa.
+Tanto `docker-compose` quanto `docker compose` continuam indisponíveis no WSL.
+
+**Workaround:** Nenhum necessário para os gates Maven. A instalação/configuração de
+Docker Compose será necessária antes da T12 e exige autorização explícita.
+
+**Resolução:** T0 concluída sem alteração de código de produção ou de testes. O baseline
+reproduzível está em `.specs/codebase/TESTING.md`; o pré-requisito de Compose foi isolado
+para a futura tarefa T12.
 
 ## Lessons Learned
 
@@ -78,15 +101,17 @@ Nenhum ativo.
 - Conventional commits
 - Testes com padrão `should[Expected]_when[Condition]`
 - Angular standalone components (sem NgModules), Signals, Angular Material
+- Mentoria: o usuário implementa o código; o assistente explica, revisa e dá pistas, sem implementar produção automaticamente
 
 ## Active Session
 
-**2026-07-14 — Correção de deploy e migração Kafka Aiven**
-- CI/CD com GitHub Actions operacional, incluindo polling do Cloud Build ✅
-- Kafka de produção migrado da Confluent Cloud para Aiven Kafka Free Tier ✅
-- Cadeia de certificados TLS do Aiven importada no truststore JVM ✅
-- Frontend Angular no repositório separado `todoapp-angular` e CORS concluídos ✅
-- Próximo passo: iniciar a Fase 8 (observabilidade)
+**2026-07-17 — Execução da fundação de observabilidade**
+- Estado real analisado: Spring Boot 3.5.15, Java 21, PostgreSQL/H2, Flyway, Kafka e LangChain4j ✅
+- Observabilidade ainda não está implementada: não há Actuator, Micrometer, Prometheus, Grafana, tracing ou correlation ID no código ✅
+- `observability-foundation/spec.md`, `context.md` e `design.md` aprovados ✅
+- `observability-foundation/tasks.md` aprovado com 15 tarefas sequenciais e matriz de validação ✅
+- T0 concluída: `./mvnw test` passou com 42 testes; Compose segue indisponível no WSL ✅
+- Próximo passo: iniciar T1 — dependências de observabilidade
 
 ## Deferred Ideas
 
@@ -94,3 +119,6 @@ Nenhum ativo.
 - Testes E2E com Cypress
 - PWA/offline support
 - WebSocket para atualizações em tempo real
+- Cache de leitura com Redis — Capturado durante: ciclo M2, fora da idempotência inicial
+- Rate limiting com Redis — Capturado durante: ciclo M2, fora da idempotência inicial
+- Alertas gerenciados e SLOs de produção — Capturado durante: observabilidade, fora do MVP
