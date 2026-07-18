@@ -111,7 +111,8 @@ para a futura tarefa T12.
 - `observability-foundation/spec.md`, `context.md` e `design.md` aprovados ✅
 - `observability-foundation/tasks.md` aprovado com 15 tarefas sequenciais e matriz de validação ✅
 - T0 concluída: `./mvnw test` passou com 42 testes; Compose segue indisponível no WSL ✅
-- Próximo passo: iniciar T1 — dependências de observabilidade
+- T1 concluída: Actuator, registry Prometheus, bridge Micrometer/OpenTelemetry e exporter OTLP adicionados sem versões explícitas; `./mvnw test -DskipTests` passou ✅
+- Próximo passo: iniciar T2 — configurar probes de health e exposição segura do Actuator
 
 ## Deferred Ideas
 

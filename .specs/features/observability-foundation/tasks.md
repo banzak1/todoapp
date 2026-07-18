@@ -3,7 +3,7 @@
 **Spec:** `.specs/features/observability-foundation/spec.md`  
 **Design:** `.specs/features/observability-foundation/design.md`  
 **Testing matrix:** `.specs/codebase/TESTING.md`  
-**Status:** Draft — awaiting approval
+**Status:** In progress — T0 and T1 completed
 
 ## Execution Plan
 
@@ -67,10 +67,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Only Actuator, Prometheus registry, Micrometer OTel bridge and OTLP exporter are added.
-- [ ] No explicit dependency version is introduced unless Maven proves it is required and you can explain why.
-- [ ] Maven resolves a single coherent dependency graph.
-- [ ] The project compiles with tests intentionally skipped for this configuration-only task.
+- [x] Only Actuator, Prometheus registry, Micrometer OTel bridge and OTLP exporter are added.
+- [x] No explicit dependency version is introduced unless Maven proves it is required and you can explain why.
+- [x] Maven resolves a single coherent dependency graph.
+- [x] The project compiles with tests intentionally skipped for this configuration-only task.
 
 ### T2: Configure safe Actuator health and endpoint exposure
 

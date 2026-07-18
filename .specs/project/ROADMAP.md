@@ -22,7 +22,7 @@
 Cada marco é uma feature independente em `.specs/features/` e só começa após a
 validação do marco anterior:
 
-### M1 — Observability Foundation 🔶 Em design
+### M1 — Observability Foundation 🔶 Em execução
 
 - Feature: `.specs/features/observability-foundation/`
 - Objetivo: health checks, Actuator/Micrometer, métricas com propósito, logs estruturados,
