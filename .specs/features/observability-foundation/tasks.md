@@ -3,7 +3,7 @@
 **Spec:** `.specs/features/observability-foundation/spec.md`  
 **Design:** `.specs/features/observability-foundation/design.md`  
 **Testing matrix:** `.specs/codebase/TESTING.md`  
-**Status:** In progress — T0 through T2 completed
+**Status:** In progress — T0 through T3 completed
 
 ## Execution Plan
 
@@ -111,10 +111,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Tests cover generated, preserved and invalid/replaced IDs.
-- [ ] Tests prove the response exposes exactly one valid correlation ID.
-- [ ] The filter leaves no MDC state after the request completes.
-- [ ] At least three focused assertions/tests are added.
+- [x] Tests cover generated, preserved and invalid/replaced IDs.
+- [x] Tests prove the response exposes exactly one valid correlation ID.
+- [x] The filter leaves no MDC state after the request completes.
+- [x] At least three focused assertions/tests are added.
 
 ### T4: Enable profile-scoped structured JSON logging
 

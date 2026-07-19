@@ -169,6 +169,11 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 **Motivo:** Evita dependência de broker no startup local e impede que a aplicação altere a infraestrutura de mensageria implicitamente em produção.
 **Como aplicar:** Docker/local broker pode criar tópicos conforme sua política; Aiven e produção devem ter o tópico `todo-tasks` provisionado previamente.
 
+### DEC-034: Correlation ID explícito no HTTP
+**Decisão:** Usar o header `X-Correlation-ID` com UUID canônico. O filtro preserva um UUID válido, gera outro para valores ausentes ou inválidos, devolve-o na resposta e o mantém no MDC apenas durante a requisição.
+**Motivo:** Permite rastreabilidade funcional antes do tracing distribuído, sem acoplar domínio ou contratos Kafka a detalhes de observabilidade.
+**Como aplicar:** `CorrelationIdFilter` é executado uma vez por requisição; `MDC.remove` no bloco `finally` impede o vazamento de contexto entre threads reutilizadas.
+
 ---
 
 *Voltar para: [[Visão Geral do Projeto]]*

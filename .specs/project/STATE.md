@@ -113,7 +113,8 @@ para a futura tarefa T12.
 - T0 concluída: `./mvnw test` passou com 42 testes; Compose segue indisponível no WSL ✅
 - T1 concluída: Actuator, registry Prometheus, bridge Micrometer/OpenTelemetry e exporter OTLP adicionados sem versões explícitas; `./mvnw test -DskipTests` passou ✅
 - T2 concluída: probes liveness/readiness, health sanitizado e allowlist de Actuator configurados; `HealthEndpointTest` passou com H2 ✅
-- Próximo passo: iniciar T3 — implementar o ciclo de vida de `X-Correlation-ID` no HTTP
+- T3 concluída: filtro HTTP cria/preserva `X-Correlation-ID`, usa MDC durante a requisição e o limpa no fim; `CorrelationIdFilterTest` passou ✅
+- Próximo passo: iniciar T4 — configurar logs estruturados JSON no profile de produção
 
 ## Deferred Ideas
 
