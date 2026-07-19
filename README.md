@@ -159,6 +159,20 @@ Este modo inicia a aplicação usando banco em memória H2. **Nota:** O Kafka Li
 ```
 *   **Console H2:** `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:todoapp`, Username: `sa`)
 
+### Validar health checks localmente
+
+Com a aplicação em execução no modo H2, valide os probes do Actuator em outro terminal:
+
+```bash
+curl -i http://localhost:8080/actuator/health/liveness
+curl -i http://localhost:8080/actuator/health/readiness
+curl -i http://localhost:8080/actuator/health
+curl -i http://localhost:8080/actuator/env
+```
+
+Os três primeiros endpoints devem responder `200` com `{"status":"UP"}`. O último
+deve responder `404`, pois endpoints administrativos não são expostos.
+
 ---
 
 ## 🚀 Deploy em Produção

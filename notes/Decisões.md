@@ -157,4 +157,18 @@ Registro de decisões técnicas, bloqueios e lições aprendidas durante o desen
 
 ---
 
+## 2026-07-19 — Fundamento de Observabilidade: Health Checks
+
+### DEC-032: Liveness e readiness com dependências distintas
+**Decisão:** Expor probes do Actuator com liveness baseado apenas no estado interno da aplicação e readiness baseado no estado interno mais o banco de dados. Kafka fica fora da readiness inicialmente.
+**Motivo:** Uma falha externa não deve provocar reinicializações em cascata. Já a indisponibilidade do banco impede o CRUD e deve retirar a instância do tráfego. A publicação Kafka exige uma decisão futura sobre consistência entre persistência e evento antes de se tornar um gate de readiness.
+**Como aplicar:** `management.endpoint.health.group.liveness` inclui `livenessState`; readiness inclui `readinessState,db`; respostas de health não expõem detalhes de componentes.
+
+### DEC-033: Tópicos Kafka são responsabilidade da infraestrutura
+**Decisão:** Desabilitar a criação administrativa automática de tópicos pelo `KafkaAdmin` (`spring.kafka.admin.auto-create=false`).
+**Motivo:** Evita dependência de broker no startup local e impede que a aplicação altere a infraestrutura de mensageria implicitamente em produção.
+**Como aplicar:** Docker/local broker pode criar tópicos conforme sua política; Aiven e produção devem ter o tópico `todo-tasks` provisionado previamente.
+
+---
+
 *Voltar para: [[Visão Geral do Projeto]]*

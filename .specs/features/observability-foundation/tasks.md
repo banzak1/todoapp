@@ -3,7 +3,7 @@
 **Spec:** `.specs/features/observability-foundation/spec.md`  
 **Design:** `.specs/features/observability-foundation/design.md`  
 **Testing matrix:** `.specs/codebase/TESTING.md`  
-**Status:** In progress — T0 and T1 completed
+**Status:** In progress — T0 through T2 completed
 
 ## Execution Plan
 
@@ -89,10 +89,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] `/actuator/health/liveness` and `/actuator/health/readiness` are testable.
-- [ ] The production exposure list contains no administrative endpoint.
-- [ ] Tests verify at least healthy liveness and sanitized health behavior.
-- [ ] Existing test assertions remain unchanged except where new Actuator behavior requires additive tests.
+- [x] `/actuator/health/liveness` and `/actuator/health/readiness` are testable.
+- [x] The production exposure list contains no administrative endpoint.
+- [x] Tests verify at least healthy liveness and sanitized health behavior.
+- [x] Existing test assertions remain unchanged except where new Actuator behavior requires additive tests.
 
 ### T3: Implement HTTP correlation ID lifecycle
 

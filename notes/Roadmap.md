@@ -101,7 +101,7 @@ Redis postergado, IA adicionado, Deploy como fase principal, CI/CD antes de Obse
 
 ---
 
-## Fase 8 — Observabilidade
+## Fase 8 — Observabilidade (Em andamento — T0 a T2 concluídas)
 **Objetivo:** Visibilidade do que acontece no sistema
 
 - [ ] Métricas com Micrometer + Prometheus

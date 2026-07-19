@@ -12,7 +12,7 @@
 | 6 | **Deploy em Produção** — Cloud Run + Neon + Aiven Kafka | ✅ Concluído |
 | 7 | **CI/CD** — GitHub Actions | ✅ Concluído |
 | — | **Frontend Angular** (repositório `todoapp-angular`) | ✅ Concluído |
-| 8 | **Observabilidade e confiabilidade** — health, métricas, logs, tracing e dashboard | 🔶 Em design |
+| 8 | **Observabilidade e confiabilidade** — health, métricas, logs, tracing e dashboard | 🔶 Em execução |
 | 9 | **Infra como Código** — Terraform | ⏳ Pendente |
 | 10 | **Redis e idempotência** — Redis configurável + criação idempotente de tarefas | ⏳ Pendente |
 | 11 | **Kubernetes local** — manifests, probes, HPA e troubleshooting | ⏳ Pendente |

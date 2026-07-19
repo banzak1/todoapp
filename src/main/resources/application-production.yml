@@ -53,6 +53,12 @@ spring:
     listener:
       auto-startup: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
 # Desabilitar Swagger/OpenAPI em produção
 springdoc:
   api-docs:

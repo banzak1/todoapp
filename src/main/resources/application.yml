@@ -24,6 +24,8 @@ spring:
         format_sql: true
 
   kafka:
+    admin:
+      auto-create: false
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -32,6 +34,22 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     listener:
       auto-startup: false
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+      group:
+        liveness:
+          include: livenessState
+        readiness:
+          include: readinessState,db
+  endpoints:
+    web:
+      exposure:
+        include: health,info
 
 # Config de IA (Groq/Llama 3 via OpenAI-compatible API):
 # Ativado via variável de ambiente LLAMA_API_KEY (setada no Cloud Run ou .env.local)

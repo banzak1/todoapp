@@ -112,7 +112,8 @@ para a futura tarefa T12.
 - `observability-foundation/tasks.md` aprovado com 15 tarefas sequenciais e matriz de validação ✅
 - T0 concluída: `./mvnw test` passou com 42 testes; Compose segue indisponível no WSL ✅
 - T1 concluída: Actuator, registry Prometheus, bridge Micrometer/OpenTelemetry e exporter OTLP adicionados sem versões explícitas; `./mvnw test -DskipTests` passou ✅
-- Próximo passo: iniciar T2 — configurar probes de health e exposição segura do Actuator
+- T2 concluída: probes liveness/readiness, health sanitizado e allowlist de Actuator configurados; `HealthEndpointTest` passou com H2 ✅
+- Próximo passo: iniciar T3 — implementar o ciclo de vida de `X-Correlation-ID` no HTTP
 
 ## Deferred Ideas
 
