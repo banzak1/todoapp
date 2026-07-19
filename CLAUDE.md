@@ -13,7 +13,7 @@ O vault do Obsidian está em `notes/`. **Sempre carregar estes arquivos no iníc
 - `notes/Roadmap.md`
 - `notes/Diretrizes.md`
 - `notes/Decisões.md`
-- `notes/Sessão 2026-07-14.md` (última sessão registrada)
+- `notes/Sessão 2026-07-19.md` (última sessão registrada)
 - `notes/Estratégia de Carreira.md` (se contexto for carreira/vagas)
 - `notes/Vagas Ativas.md` (se contexto for carreira/vagas)
 
@@ -74,9 +74,9 @@ Além de Tech Lead do todoApp, atuo como **Assistente de Carreira**:
 
 ## Contexto da Última Sessão
 
-Carregar `notes/Sessão 2026-07-14.md` para continuidade. Pontos principais:
-1. **CI/CD operacional:** GitHub Actions testa PRs e faz build/deploy no push para `main`, usando polling do Cloud Build.
-2. **Kafka de produção migrado:** Confluent Cloud foi substituído pelo Aiven Kafka Free Tier, com SASL/SCRAM-SHA-256.
-3. **TLS do Aiven corrigido:** a cadeia de certificados é importada no truststore JVM durante o build da imagem.
-4. **Frontend Angular e CORS já estão concluídos:** o frontend vive no repositório separado `todoapp-angular`.
-5. Próximos focos: Fase 8 (observabilidade), seguida de Terraform, Redis e Kubernetes.
+Carregar `notes/Sessão 2026-07-19.md` para continuidade. Pontos principais:
+1. **Feature isolada:** observabilidade está na branch `dev-observability-foundation`, baseada em `origin/dev`.
+2. **T2 concluída:** probes Actuator, health sanitizado, allowlist de produção e validação local documentada.
+3. **T3 concluída:** `X-Correlation-ID` explícito no HTTP com MDC e limpeza garantida.
+4. **Diagrama de arquitetura versionado:** imagem visível no README, com HTML e JSON-fonte em `notes/`.
+5. Próximo foco: T4 — logs estruturados JSON no profile de produção.
