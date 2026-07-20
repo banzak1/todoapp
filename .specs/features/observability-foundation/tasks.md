@@ -3,7 +3,7 @@
 **Spec:** `.specs/features/observability-foundation/spec.md`  
 **Design:** `.specs/features/observability-foundation/design.md`  
 **Testing matrix:** `.specs/codebase/TESTING.md`  
-**Status:** In progress — T0 through T3 completed
+**Status:** In progress — T0 through T4 completed
 
 ## Execution Plan
 
@@ -133,10 +133,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Production configuration selects a supported JSON format.
-- [ ] A focused test or captured-log check proves `correlationId` is emitted when present.
-- [ ] No secret or payload logging is introduced.
-- [ ] Local default logging behavior is preserved.
+- [x] Production configuration selects a supported JSON format.
+- [x] A focused test proves `correlationId` is emitted when present.
+- [x] No secret or payload logging is introduced.
+- [x] Local default logging behavior is preserved.
 
 ### T5: Record task outcomes through an application port
 

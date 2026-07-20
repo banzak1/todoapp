@@ -59,6 +59,11 @@ management:
       exposure:
         include: health,info,prometheus
 
+logging:
+  structured:
+    format:
+      console: logstash
+
 # Desabilitar Swagger/OpenAPI em produção
 springdoc:
   api-docs:

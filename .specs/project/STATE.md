@@ -114,7 +114,8 @@ para a futura tarefa T12.
 - T1 concluída: Actuator, registry Prometheus, bridge Micrometer/OpenTelemetry e exporter OTLP adicionados sem versões explícitas; `./mvnw test -DskipTests` passou ✅
 - T2 concluída: probes liveness/readiness, health sanitizado e allowlist de Actuator configurados; `HealthEndpointTest` passou com H2 ✅
 - T3 concluída: filtro HTTP cria/preserva `X-Correlation-ID`, usa MDC durante a requisição e o limpa no fim; `CorrelationIdFilterTest` passou ✅
-- Próximo passo: iniciar T4 — configurar logs estruturados JSON no profile de produção
+- T4 concluída: profile `production` usa JSON Logstash no console; o `correlationId` do MDC é emitido sem introduzir logs de segredo ou payload; `StructuredLoggingConfigurationTest` passou ✅
+- Próximo passo: iniciar T5 — registrar métricas de operações de tarefas por uma porta de aplicação
 
 ## Deferred Ideas
 
