@@ -105,7 +105,7 @@ para a futura tarefa T12.
 
 ## Active Session
 
-**2026-07-17 — Execução da fundação de observabilidade**
+**2026-07-20 — Continuidade da fundação de observabilidade**
 - Estado real analisado: Spring Boot 3.5.15, Java 21, PostgreSQL/H2, Flyway, Kafka e LangChain4j ✅
 - Observabilidade ainda não está implementada: não há Actuator, Micrometer, Prometheus, Grafana, tracing ou correlation ID no código ✅
 - `observability-foundation/spec.md`, `context.md` e `design.md` aprovados ✅
@@ -115,7 +115,8 @@ para a futura tarefa T12.
 - T2 concluída: probes liveness/readiness, health sanitizado e allowlist de Actuator configurados; `HealthEndpointTest` passou com H2 ✅
 - T3 concluída: filtro HTTP cria/preserva `X-Correlation-ID`, usa MDC durante a requisição e o limpa no fim; `CorrelationIdFilterTest` passou ✅
 - T4 concluída: profile `production` usa JSON Logstash no console; o `correlationId` do MDC é emitido sem introduzir logs de segredo ou payload; `StructuredLoggingConfigurationTest` passou ✅
-- Próximo passo: iniciar T5 — registrar métricas de operações de tarefas por uma porta de aplicação
+- T5 concluída: métricas de criação e atualização bem-sucedidas são registradas por uma porta de aplicação; `TaskServiceTest` e `MicrometerTaskOperationMetricsTest` passaram ✅
+- Próximo passo: iniciar T6 — propagar correlation ID e registrar o resultado de publicação no Kafka
 
 ## Deferred Ideas
 

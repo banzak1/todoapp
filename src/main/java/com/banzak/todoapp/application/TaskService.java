@@ -22,10 +22,15 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskEventPublisher eventPublisher;
+    private final TaskOperationMetrics taskOperationMetrics;
 
-    public TaskService(TaskRepository taskRepository, TaskEventPublisher eventPublisher) {
+    public TaskService(
+            TaskRepository taskRepository,
+            TaskEventPublisher eventPublisher,
+            TaskOperationMetrics taskOperationMetrics) {
         this.taskRepository = taskRepository;
         this.eventPublisher = eventPublisher;
+        this.taskOperationMetrics = taskOperationMetrics;
     }
 
     public List<TaskResponse> findAll() {
@@ -68,6 +73,7 @@ public class TaskService {
                 .build();
 
         var saved = taskRepository.save(task);
+        taskOperationMetrics.recordCreated();
         eventPublisher.publishCreated(saved);
         return toResponse(saved);
     }
@@ -93,6 +99,7 @@ public class TaskService {
                 .ifPresent(task::setStatus);
 
         var saved = taskRepository.save(task);
+        taskOperationMetrics.recordUpdated();
         eventPublisher.publishUpdated(saved);
         return toResponse(saved);
     }

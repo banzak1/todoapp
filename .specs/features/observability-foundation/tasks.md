@@ -155,10 +155,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Counters are named `todoapp.tasks.created` and `todoapp.tasks.updated`.
-- [ ] `TaskServiceTest` verifies each successful use case calls the port once.
-- [ ] Adapter tests verify counters increment with only low-cardinality tags.
-- [ ] No task ID or correlation ID is used as a metric tag.
+- [x] Counters are named `todoapp.tasks.created` and `todoapp.tasks.updated`.
+- [x] `TaskServiceTest` verifies each successful use case calls the port once.
+- [x] Adapter tests verify counters increment with only low-cardinality tags.
+- [x] No task ID or correlation ID is used as a metric tag.
 
 ### T6: Propagate correlation ID and publisher outcome in Kafka
 
