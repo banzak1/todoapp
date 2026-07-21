@@ -26,6 +26,8 @@ spring:
   kafka:
     admin:
       auto-create: false
+    template:
+      observation-enabled: true
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -34,6 +36,7 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     listener:
       auto-startup: false
+      observation-enabled: true
 
 management:
   endpoint:

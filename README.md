@@ -173,6 +173,13 @@ curl -i http://localhost:8080/actuator/env
 Os três primeiros endpoints devem responder `200` com `{"status":"UP"}`. O último
 deve responder `404`, pois endpoints administrativos não são expostos.
 
+### Observações nativas do Kafka
+
+O Spring Kafka registra observações do `KafkaTemplate` e dos listeners. Esses sinais
+geram as métricas padrão `spring.kafka.template` e `spring.kafka.listener`, incluindo
+atributos de mensageria de baixa cardinalidade. Não são usados IDs de tarefa ou de
+correlação como tags, nem timers manuais que duplicariam essas medições.
+
 ---
 
 ## 🚀 Deploy em Produção

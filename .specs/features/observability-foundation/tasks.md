@@ -243,10 +243,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Configuration enables observation for producer and listeners.
-- [ ] A focused test verifies the configured components use the observation registry.
-- [ ] Standard `spring.kafka.template` and `spring.kafka.listener` signals are documented.
-- [ ] No manual duplicate latency timer is added.
+- [x] Configuration enables observation for producer and listeners.
+- [x] A focused test verifies the configured components use the observation registry.
+- [x] Standard `spring.kafka.template` and `spring.kafka.listener` signals are documented.
+- [x] No manual duplicate latency timer is added.
 
 ### T10: Configure OpenTelemetry tracing as a feature flag
 

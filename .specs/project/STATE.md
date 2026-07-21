@@ -119,7 +119,8 @@ para a futura tarefa T12.
 - T6 concluída: producer Kafka propaga `X-Correlation-ID` e registra o resultado de publicação com tags limitadas; `KafkaTaskEventPublisherTest` passou ✅
 - T7 concluída: consumers Kafka restauram/limpam correlation ID e registram processamento e DLT nos resultados corretos; `KafkaTaskEventConsumerTest` passou ✅
 - T8 concluída: adapter LangChain4j registra resultados de sugestões com tags seguras, mantendo o fallback Mock; `LangChain4jTaskSuggesterObservabilityTest` e `AiConfigTest` passaram ✅
-- Próximo passo: iniciar T9 — habilitar observações nativas do Kafka
+- T9 concluída: `KafkaTemplate` e listeners Kafka usam o `ObservationRegistry` com sinais nativos sem timers duplicados; `KafkaObservationConfigurationTest` passou ✅
+- Próximo passo: iniciar T10 — configurar tracing OpenTelemetry como feature flag
 
 ## Deferred Ideas
 
