@@ -199,10 +199,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Tests cover propagated, generated and cleaned consumer context.
-- [ ] Processed and DLT counters use `consumer`, `event_type` and/or `outcome` only.
-- [ ] The existing retry behavior remains unchanged.
-- [ ] At least one test proves DLT does not increment on ordinary successful consumption.
+- [x] Tests cover propagated, generated and cleaned consumer context.
+- [x] Processed and DLT counters use `consumer`, `event_type` and/or `outcome` only.
+- [x] The existing retry behavior remains unchanged.
+- [x] At least one test proves DLT does not increment on ordinary successful consumption.
 
 ### T8: Instrument AI suggestion outcomes
 

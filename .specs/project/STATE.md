@@ -117,7 +117,8 @@ para a futura tarefa T12.
 - T4 concluída: profile `production` usa JSON Logstash no console; o `correlationId` do MDC é emitido sem introduzir logs de segredo ou payload; `StructuredLoggingConfigurationTest` passou ✅
 - T5 concluída: métricas de criação e atualização bem-sucedidas são registradas por uma porta de aplicação; `TaskServiceTest` e `MicrometerTaskOperationMetricsTest` passaram ✅
 - T6 concluída: producer Kafka propaga `X-Correlation-ID` e registra o resultado de publicação com tags limitadas; `KafkaTaskEventPublisherTest` passou ✅
-- Próximo passo: iniciar T7 — restaurar correlation ID e métricas no consumer Kafka
+- T7 concluída: consumers Kafka restauram/limpam correlation ID e registram processamento e DLT nos resultados corretos; `KafkaTaskEventConsumerTest` passou ✅
+- Próximo passo: iniciar T8 — instrumentar resultados das sugestões de IA
 
 ## Deferred Ideas
 
