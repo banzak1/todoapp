@@ -116,7 +116,8 @@ para a futura tarefa T12.
 - T3 concluída: filtro HTTP cria/preserva `X-Correlation-ID`, usa MDC durante a requisição e o limpa no fim; `CorrelationIdFilterTest` passou ✅
 - T4 concluída: profile `production` usa JSON Logstash no console; o `correlationId` do MDC é emitido sem introduzir logs de segredo ou payload; `StructuredLoggingConfigurationTest` passou ✅
 - T5 concluída: métricas de criação e atualização bem-sucedidas são registradas por uma porta de aplicação; `TaskServiceTest` e `MicrometerTaskOperationMetricsTest` passaram ✅
-- Próximo passo: iniciar T6 — propagar correlation ID e registrar o resultado de publicação no Kafka
+- T6 concluída: producer Kafka propaga `X-Correlation-ID` e registra o resultado de publicação com tags limitadas; `KafkaTaskEventPublisherTest` passou ✅
+- Próximo passo: iniciar T7 — restaurar correlation ID e métricas no consumer Kafka
 
 ## Deferred Ideas
 

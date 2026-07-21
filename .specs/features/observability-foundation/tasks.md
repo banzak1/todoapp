@@ -177,10 +177,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Publisher tests inspect the produced record header.
-- [ ] Missing MDC produces a valid fallback ID without failing task publication.
-- [ ] Publish metrics distinguish success and failure with bounded tags.
-- [ ] Existing event fields remain unchanged.
+- [x] Publisher tests inspect the produced record header.
+- [x] Missing MDC produces a valid fallback ID without failing task publication.
+- [x] Publish metrics distinguish success and failure with bounded tags.
+- [x] Existing event fields remain unchanged.
 
 ### T7: Restore correlation context and metrics in Kafka consumers
 
