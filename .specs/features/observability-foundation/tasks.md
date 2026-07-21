@@ -221,10 +221,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Success and failure are independently tested.
-- [ ] No prompt, refined description or subtasks appear in metric tags.
-- [ ] Existing mock fallback behavior remains covered.
-- [ ] The counter increments exactly once per completed adapter attempt.
+- [x] Success and failure are independently tested.
+- [x] No prompt, refined description or subtasks appear in metric tags.
+- [x] Existing mock fallback behavior remains covered.
+- [x] The counter increments exactly once per completed adapter attempt.
 
 ### T9: Enable native Kafka observations
 

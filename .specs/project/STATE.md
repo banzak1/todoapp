@@ -118,7 +118,8 @@ para a futura tarefa T12.
 - T5 concluída: métricas de criação e atualização bem-sucedidas são registradas por uma porta de aplicação; `TaskServiceTest` e `MicrometerTaskOperationMetricsTest` passaram ✅
 - T6 concluída: producer Kafka propaga `X-Correlation-ID` e registra o resultado de publicação com tags limitadas; `KafkaTaskEventPublisherTest` passou ✅
 - T7 concluída: consumers Kafka restauram/limpam correlation ID e registram processamento e DLT nos resultados corretos; `KafkaTaskEventConsumerTest` passou ✅
-- Próximo passo: iniciar T8 — instrumentar resultados das sugestões de IA
+- T8 concluída: adapter LangChain4j registra resultados de sugestões com tags seguras, mantendo o fallback Mock; `LangChain4jTaskSuggesterObservabilityTest` e `AiConfigTest` passaram ✅
+- Próximo passo: iniciar T9 — habilitar observações nativas do Kafka
 
 ## Deferred Ideas
 
