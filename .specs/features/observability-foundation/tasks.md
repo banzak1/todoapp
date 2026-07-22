@@ -265,10 +265,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Tracing/export can be disabled without removing Actuator or correlation ID.
-- [ ] Local profile values target a local OTLP receiver only when explicitly enabled.
-- [ ] Production does not embed a Tempo URL or secret.
-- [ ] Tests cover enabled and disabled configuration paths.
+- [x] Tracing/export can be disabled without removing Actuator or correlation ID.
+- [x] Local profile values target a local OTLP receiver only when explicitly enabled.
+- [x] Production does not embed a Tempo URL or secret.
+- [x] Tests cover enabled and disabled configuration paths.
 
 ### T11: Verify `traceparent` across Kafka producer and consumer
 

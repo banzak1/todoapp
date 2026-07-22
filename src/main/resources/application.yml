@@ -39,6 +39,12 @@ spring:
       observation-enabled: true
 
 management:
+  tracing:
+    enabled: false
+  otlp:
+    tracing:
+      export:
+        enabled: false
   endpoint:
     health:
       probes:

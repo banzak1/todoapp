@@ -105,7 +105,7 @@ para a futura tarefa T12.
 
 ## Active Session
 
-**2026-07-20 — Continuidade da fundação de observabilidade**
+**2026-07-21 — Métricas assíncronas e tracing opt-in da fundação de observabilidade**
 - Estado real analisado: Spring Boot 3.5.15, Java 21, PostgreSQL/H2, Flyway, Kafka e LangChain4j ✅
 - Observabilidade ainda não está implementada: não há Actuator, Micrometer, Prometheus, Grafana, tracing ou correlation ID no código ✅
 - `observability-foundation/spec.md`, `context.md` e `design.md` aprovados ✅
@@ -120,7 +120,8 @@ para a futura tarefa T12.
 - T7 concluída: consumers Kafka restauram/limpam correlation ID e registram processamento e DLT nos resultados corretos; `KafkaTaskEventConsumerTest` passou ✅
 - T8 concluída: adapter LangChain4j registra resultados de sugestões com tags seguras, mantendo o fallback Mock; `LangChain4jTaskSuggesterObservabilityTest` e `AiConfigTest` passaram ✅
 - T9 concluída: `KafkaTemplate` e listeners Kafka usam o `ObservationRegistry` com sinais nativos sem timers duplicados; `KafkaObservationConfigurationTest` passou ✅
-- Próximo passo: iniciar T10 — configurar tracing OpenTelemetry como feature flag
+- T10 concluída: tracing OTLP é opt-in em profile local e permanece desabilitado por padrão e em produção; `TracingConfigurationTest` passou ✅
+- Próximo passo: iniciar T11 — verificar propagação de `traceparent` entre producer e consumer Kafka
 
 ## Deferred Ideas
 
