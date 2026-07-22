@@ -287,10 +287,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Test captures spans with an in-memory/test exporter rather than an external backend.
-- [ ] Producer and consumer share a trace ID when propagation is present.
-- [ ] Missing propagation is explicitly asserted as a new trace.
-- [ ] The test has deterministic completion/timeout handling.
+- [x] Test captures spans with an in-memory/test exporter rather than an external backend.
+- [x] Producer and consumer share a trace ID when propagation is present.
+- [x] Missing propagation is explicitly asserted as a new trace.
+- [x] The test has deterministic completion/timeout handling.
 
 ### T12: Add the local observability Compose stack
 

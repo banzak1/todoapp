@@ -121,7 +121,8 @@ para a futura tarefa T12.
 - T8 concluída: adapter LangChain4j registra resultados de sugestões com tags seguras, mantendo o fallback Mock; `LangChain4jTaskSuggesterObservabilityTest` e `AiConfigTest` passaram ✅
 - T9 concluída: `KafkaTemplate` e listeners Kafka usam o `ObservationRegistry` com sinais nativos sem timers duplicados; `KafkaObservationConfigurationTest` passou ✅
 - T10 concluída: tracing OTLP é opt-in em profile local e permanece desabilitado por padrão e em produção; `TracingConfigurationTest` passou ✅
-- Próximo passo: iniciar T11 — verificar propagação de `traceparent` entre producer e consumer Kafka
+- T11 concluída: `KafkaTracePropagationIT` usa Kafka embarcado e exporter em memória para provar que producer/consumer compartilham o trace com `traceparent` e que um header ausente inicia uma nova raiz; passou ✅
+- Próximo passo: iniciar T12 — adicionar a stack local de Prometheus, Grafana e Tempo via Compose
 
 ## Deferred Ideas
 
