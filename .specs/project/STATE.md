@@ -122,7 +122,8 @@ para a futura tarefa T12.
 - T9 concluída: `KafkaTemplate` e listeners Kafka usam o `ObservationRegistry` com sinais nativos sem timers duplicados; `KafkaObservationConfigurationTest` passou ✅
 - T10 concluída: tracing OTLP é opt-in em profile local e permanece desabilitado por padrão e em produção; `TracingConfigurationTest` passou ✅
 - T11 concluída: `KafkaTracePropagationIT` usa Kafka embarcado e exporter em memória para provar que producer/consumer compartilham o trace com `traceparent` e que um header ausente inicia uma nova raiz; passou ✅
-- Próximo passo: iniciar T12 — adicionar a stack local de Prometheus, Grafana e Tempo via Compose
+- T12 concluída: stack local aditiva iniciou com PostgreSQL, Kafka, Prometheus, Grafana e Tempo; `docker compose ... config` passou, Tempo ficou pronto e Prometheus confirmou o scrape de `app:8080/actuator/prometheus` como `up` ✅
+- Próximo passo: iniciar T13 — provisionar datasources e dashboard operacional no Grafana
 
 ## Deferred Ideas
 

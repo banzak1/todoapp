@@ -1,0 +1,52 @@
+services:
+  app:
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres,observability
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/todoapp
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      OBSERVABILITY_TRACING_ENABLED: "true"
+      OTLP_TRACING_ENDPOINT: http://tempo:4318/v1/traces
+
+  tempo:
+    image: grafana/tempo:3.0.0
+    container_name: todoapp-tempo
+    user: "0:0"
+    command: ["-config.file=/etc/tempo/tempo.yml"]
+    volumes:
+      - ./observability/tempo/tempo.yml:/etc/tempo/tempo.yml:ro
+      - tempodata:/data/tempo
+    ports:
+      - "3200:3200"
+    networks:
+      - todoapp-network
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: todoapp-prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheusdata:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - todoapp-network
+
+  grafana:
+    image: grafana/grafana:12.0.2
+    container_name: todoapp-grafana
+    volumes:
+      - grafanadata:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - todoapp-network
+
+volumes:
+  tempodata:
+  prometheusdata:
+  grafanadata:

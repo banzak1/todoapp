@@ -309,10 +309,10 @@ T0 → T1 → T2 → T3 → T4 → T5
 
 **Done when:**
 
-- [ ] Tempo has a persistent local trace-data volume and no production credentials.
-- [ ] Prometheus scrapes only the approved application metrics endpoint.
-- [ ] Grafana, Prometheus and Tempo are local-only services.
-- [ ] You obtain explicit approval immediately before any command that starts containers.
+- [x] Tempo has a persistent local trace-data volume and no production credentials.
+- [x] Prometheus scrapes only the approved application metrics endpoint.
+- [x] Grafana, Prometheus and Tempo are local-only services.
+- [x] You obtain explicit approval immediately before any command that starts containers.
 
 ### T13: Provision Grafana datasources and an operational dashboard
 

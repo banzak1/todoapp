@@ -1,4 +1,8 @@
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
   tracing:
     enabled: ${OBSERVABILITY_TRACING_ENABLED:false}
     sampling:
