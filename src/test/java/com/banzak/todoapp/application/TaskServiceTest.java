@@ -39,6 +39,9 @@ class TaskServiceTest {
     @Mock
     private TaskEventPublisher eventPublisher;
 
+    @Mock
+    private TaskOperationMetrics taskOperationMetrics;
+
     @InjectMocks
     private TaskService taskService;
 
@@ -222,6 +225,7 @@ class TaskServiceTest {
             var captured = captor.getValue();
             assertThat(captured.getStatus()).isEqualTo(TaskStatus.TODO);
             assertThat(captured.getTitle()).isEqualTo("New Task");
+            verify(taskOperationMetrics).recordCreated();
         }
 
         @Test
@@ -282,6 +286,19 @@ class TaskServiceTest {
 
             assertThat(result.priority()).isEqualTo("MEDIUM");
         }
+
+        @Test
+        @DisplayName("should not record created metric when persistence fails")
+        void shouldNotRecordMetric_whenPersistenceFails() {
+            var request = new CreateTaskRequest("New Task", null, null);
+            when(taskRepository.save(any(Task.class))).thenThrow(new RuntimeException("database unavailable"));
+
+            assertThatThrownBy(() -> taskService.create(request))
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessage("database unavailable");
+
+            verifyNoInteractions(taskOperationMetrics);
+        }
     }
 
     @Nested
@@ -303,6 +320,7 @@ class TaskServiceTest {
             assertThat(result.description()).isEqualTo("Updated Desc");
             assertThat(result.priority()).isEqualTo("LOW");
             assertThat(result.status()).isEqualTo("DONE");
+            verify(taskOperationMetrics).recordUpdated();
         }
 
         @Test
@@ -332,6 +350,23 @@ class TaskServiceTest {
                     .isInstanceOf(TaskNotFoundException.class)
                     .hasMessageContaining("99");
             verify(taskRepository, never()).save(any());
+            verifyNoInteractions(taskOperationMetrics);
+        }
+
+        @Test
+        @DisplayName("should not record updated metric when persistence fails")
+        void shouldNotRecordMetric_whenPersistenceFails() {
+            var existing = createSampleTask(1L);
+            var request = new UpdateTaskRequest("Updated Title", null, null, null);
+
+            when(taskRepository.findById(1L)).thenReturn(Optional.of(existing));
+            when(taskRepository.save(any(Task.class))).thenThrow(new RuntimeException("database unavailable"));
+
+            assertThatThrownBy(() -> taskService.update(1L, request))
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessage("database unavailable");
+
+            verifyNoInteractions(taskOperationMetrics);
         }
     }
 

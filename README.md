@@ -42,6 +42,14 @@ O projeto evolui adicionando novas camadas de complexidade técnica no mesmo rep
 
 ## 🏛️ Arquitetura do Projeto (Clean Architecture / Ports & Adapters)
 
+### Visão geral do sistema
+
+![Diagrama da arquitetura atual do todoApp](notes/todoapp-arquitetura.jpeg)
+
+O diagrama apresenta as integrações HTTP, persistência, mensageria, IA e os ambientes
+local e de produção. A versão [interativa](notes/arquitetura-archify.html) e o
+[arquivo-fonte](notes/archify-input.json) estão versionados em `notes/`.
+
 O projeto separa as regras de negócio centrais (domínio e casos de uso) dos detalhes de tecnologia (banco de dados, frameworks e mensageria):
 
 ```text
@@ -150,6 +158,27 @@ Este modo inicia a aplicação usando banco em memória H2. **Nota:** O Kafka Li
 ./mvnw spring-boot:run
 ```
 *   **Console H2:** `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:todoapp`, Username: `sa`)
+
+### Validar health checks localmente
+
+Com a aplicação em execução no modo H2, valide os probes do Actuator em outro terminal:
+
+```bash
+curl -i http://localhost:8080/actuator/health/liveness
+curl -i http://localhost:8080/actuator/health/readiness
+curl -i http://localhost:8080/actuator/health
+curl -i http://localhost:8080/actuator/env
+```
+
+Os três primeiros endpoints devem responder `200` com `{"status":"UP"}`. O último
+deve responder `404`, pois endpoints administrativos não são expostos.
+
+### Observações nativas do Kafka
+
+O Spring Kafka registra observações do `KafkaTemplate` e dos listeners. Esses sinais
+geram as métricas padrão `spring.kafka.template` e `spring.kafka.listener`, incluindo
+atributos de mensageria de baixa cardinalidade. Não são usados IDs de tarefa ou de
+correlação como tags, nem timers manuais que duplicariam essas medições.
 
 ---
 

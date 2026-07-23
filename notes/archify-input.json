@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "TodoApp — Arquitetura",
+    "subtitle": "Spring Boot 3.5 · Java 21 · PostgreSQL · Kafka · LangChain4j / Groq",
+    "output": "notes/arquitetura-archify.html",
+    "viewBox": [1400, 950]
+  },
+  "layout": {
+    "mode": "grid",
+    "origin": [40, 40],
+    "cols": 6,
+    "gapX": 50,
+    "gapY": 50,
+    "cellW": 140,
+    "cellH": 64
+  },
+  "components": [
+    { "id": "client", "type": "external", "label": "Cliente HTTP", "sublabel": "Front-end Angular", "row": 0, "col": 0, "tag": "HTTPS" },
+    { "id": "docs", "type": "external", "label": "Swagger UI", "sublabel": "/swagger-ui.html", "row": 0, "col": 2, "tag": "OpenAPI" },
+
+    { "id": "controller", "type": "backend", "label": "Controllers REST", "sublabel": "TaskController · AiTaskController", "row": 1, "col": 0 },
+    { "id": "service", "type": "backend", "label": "TaskService", "sublabel": "Casos de uso · Portas", "row": 1, "col": 1 },
+    { "id": "domain", "type": "backend", "label": "Domínio", "sublabel": "Task · Enums", "row": 1, "col": 2 },
+
+    { "id": "repo", "type": "database", "label": "TaskRepository", "sublabel": "Spring Data JPA", "row": 2, "col": 0 },
+    { "id": "flyway", "type": "backend", "label": "Flyway", "sublabel": "Migrations V1, V2", "row": 2, "col": 1, "tag": "validate" },
+    { "id": "publisher", "type": "messagebus", "label": "Kafka Publisher", "sublabel": "TaskEventPublisher", "row": 2, "col": 2 },
+    { "id": "aiPort", "type": "backend", "label": "AiTaskSuggester", "sublabel": "Porta de IA", "row": 2, "col": 3 },
+
+    { "id": "db", "type": "database", "label": "PostgreSQL", "sublabel": "Neon (prod) / H2 (dev)", "row": 3, "col": 0, "tag": "JDBC" },
+    { "id": "kafka", "type": "messagebus", "label": "Apache Kafka", "sublabel": "Aiven / KRaft\ntópico: todo-tasks", "row": 3, "col": 2, "tag": "SASL_SSL + SCRAM" },
+    { "id": "consumerAudit", "type": "backend", "label": "Auditoria", "sublabel": "grupo audit\nRetry ×3 → DLT", "row": 3, "col": 3 },
+    { "id": "consumerNotif", "type": "backend", "label": "Notificações", "sublabel": "grupo notificações", "row": 3, "col": 4 },
+    { "id": "dlt", "type": "messagebus", "label": "Dead Letter Topic", "sublabel": "todo-tasks-dlt", "row": 3, "col": 5, "tag": "@DltHandler" },
+
+    { "id": "aiAdapter", "type": "backend", "label": "Adaptador IA", "sublabel": "LangChain4j / Mock", "row": 4, "col": 2 },
+    { "id": "llm", "type": "external", "label": "Groq API", "sublabel": "Llama 3.3 70B", "row": 4, "col": 3, "tag": "LLAMA_API_KEY" },
+
+    { "id": "deployLocal", "type": "cloud", "label": "Deploy Local", "sublabel": "Docker Compose", "row": 5, "col": 0 },
+    { "id": "deployCloud", "type": "cloud", "label": "Deploy Produção", "sublabel": "Cloud Run · Neon · Aiven", "row": 5, "col": 2 }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Spring Boot App", "wraps": ["controller", "service", "domain", "repo", "flyway", "publisher", "aiPort", "consumerAudit", "consumerNotif", "dlt", "aiAdapter"] },
+    { "kind": "region", "label": "Infraestrutura externa", "wraps": ["db", "kafka", "llm"] }
+  ],
+  "connections": [
+    { "from": "client", "to": "controller", "label": "REST + JSON", "variant": "emphasis", "labelDy": 26 },
+    { "from": "client", "to": "docs", "label": "documentação", "variant": "dashed" },
+    { "from": "controller", "to": "service", "label": "DTO validado" },
+    { "from": "controller", "to": "aiPort" },
+    { "from": "service", "to": "domain" },
+    { "from": "service", "to": "repo" },
+    { "from": "service", "to": "publisher" },
+    { "from": "flyway", "to": "repo", "label": "migra", "labelDy": 22 },
+    { "from": "repo", "to": "db", "label": "JDBC", "fromSide": "bottom", "toSide": "top", "labelAt": [100, 342] },
+    { "from": "publisher", "to": "kafka", "label": "ev. Kafka", "fromSide": "bottom", "toSide": "top", "labelAt": [480, 342] },
+    { "from": "kafka", "to": "consumerAudit", "label": "grupo audit", "fromSide": "right", "toSide": "left", "labelAt": [587, 456] },
+    { "from": "kafka", "to": "consumerNotif", "label": "grupo notif.", "fromSide": "right", "toSide": "left", "labelAt": [682, 456] },
+    { "from": "consumerAudit", "to": "dlt", "label": "após falha", "variant": "dashed", "fromSide": "bottom", "toSide": "top", "labelAt": [860, 456] },
+    { "from": "aiPort", "to": "aiAdapter" },
+    { "from": "aiAdapter", "to": "llm", "label": "Groq API" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Perfis", "items": [
+      "default: H2, Kafka off, IA mock",
+      "postgres: PostgreSQL + Kafka on",
+      "production: Neon · Aiven · Groq"
+    ]},
+    { "dot": "emerald", "title": "Fluxo CRUD", "items": [
+      "Controller → TaskService → JPA → DB",
+      "Evento Kafka após persistência",
+      "Consumidores independentes"
+    ]},
+    { "dot": "rose", "title": "Kafka Resiliência", "items": [
+      "3 retentativas c/ backoff exponencial",
+      "Dead Letter Topic após falha",
+      "Sem transação distribuída"
+    ]},
+    { "dot": "violet", "title": "IA", "items": [
+      "AiTaskSuggester: porta na aplicação",
+      "LangChain4j via Groq (Llama 3.3 70B)",
+      "MockTaskSuggester como fallback"
+    ]}
+  ]
+}

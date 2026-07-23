@@ -53,6 +53,23 @@ spring:
     listener:
       auto-startup: true
 
+management:
+  tracing:
+    enabled: ${OBSERVABILITY_TRACING_ENABLED:false}
+  otlp:
+    tracing:
+      export:
+        enabled: ${OBSERVABILITY_OTLP_EXPORT_ENABLED:false}
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+logging:
+  structured:
+    format:
+      console: logstash
+
 # Desabilitar Swagger/OpenAPI em produção
 springdoc:
   api-docs:

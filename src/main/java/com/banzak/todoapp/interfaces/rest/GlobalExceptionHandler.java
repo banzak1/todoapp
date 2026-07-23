@@ -8,6 +8,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.net.URI;
 import java.time.Instant;
@@ -36,6 +37,15 @@ public class GlobalExceptionHandler {
         problem.setTitle("Validation Error");
         problem.setDetail(String.join(", ", errors));
         problem.setInstance(URI.create("/api/v1/tasks"));
+        problem.setProperty("timestamp", Instant.now().toString());
+        return problem;
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ProblemDetail handleResourceNotFound(NoResourceFoundException ex) {
+        var problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Resource not found");
+        problem.setTitle("Not Found");
+        problem.setInstance(URI.create(ex.getResourcePath()));
         problem.setProperty("timestamp", Instant.now().toString());
         return problem;
     }

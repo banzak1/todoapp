@@ -1,6 +1,7 @@
 package com.banzak.todoapp.infrastructure.ai;
 
 import com.banzak.todoapp.application.ai.AiTaskSuggester;
+import com.banzak.todoapp.infrastructure.observability.MicrometerAiSuggestionMetrics;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
@@ -43,9 +44,11 @@ public class AiConfig {
 
     @Bean
     @Conditional(GroqApiKeySet.class)
-    public AiTaskSuggester langchain4jTaskSuggester(LangChain4jTaskSuggesterService service) {
+    public AiTaskSuggester langchain4jTaskSuggester(
+            LangChain4jTaskSuggesterService service,
+            MicrometerAiSuggestionMetrics metrics) {
         log.info("Ativando adaptador de IA real (Groq/Llama 3).");
-        return new LangChain4jTaskSuggester(service);
+        return new LangChain4jTaskSuggester(service, metrics);
     }
 
     @Bean
